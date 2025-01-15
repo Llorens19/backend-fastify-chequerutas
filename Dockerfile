@@ -5,7 +5,7 @@ FROM node:22-alpine
 WORKDIR /app
 
 # Copiar archivos de configuración
-COPY package.json package-lock.json ./
+COPY package.json ./
 
 # Instalar dependencias
 RUN npm install
@@ -13,7 +13,7 @@ RUN npm install
 # Copiar el código de la aplicación
 COPY . .
 
-RUN npm install -g nodemon
+# RUN npm install -g nodemon
 
 # Copiar el script wait-for-it
 COPY wait-for-it.sh /wait-for-it.sh
