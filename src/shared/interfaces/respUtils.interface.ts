@@ -1,4 +1,4 @@
-export interface IResp {
+export interface IResp<T> {
   status: number;
-  result: object;
+  result: T;
 }

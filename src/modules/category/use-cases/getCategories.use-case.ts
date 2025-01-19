@@ -1,20 +1,23 @@
 
 //Interfaces
-import { FastifyRequest } from "fastify";
 import { IResp } from "../../../shared/interfaces/respUtils.interface";
-
 
 //Repositories
 import { getCategoriesRepo } from "../category.repo";
 
-//Views
-// import { userRecruiterViewer, userRecruiterLoginViewer } from "./userRecruiter.view";
-
 //Utils
 import { resp } from "../../../shared/utils/resp.util";
+import { ICategories } from "../interfaces/category.interface";
+
+//Error
+import { ErrorResp } from "../../../shared/utils/error.util";
 
 
-export const getCategoriesUseCase = async (): Promise<IResp> => {
+export const getCategoriesUseCase = async (): Promise<IResp<ICategories>> => {
   const response = await getCategoriesRepo();
-  return resp(200, response);
+
+  if (!response) {
+    throw new ErrorResp(404, "Categories not found");
+  }
+  return resp(200, { categories: response });
 }

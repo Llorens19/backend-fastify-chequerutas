@@ -6,7 +6,5 @@ import { Categories } from '../../shared/entities/Categories';
 import { ICategory } from './interfaces/category.interface';
 
 export const getCategoriesRepo = async ():Promise<ICategory[]> => {
-  const resp = await AppDataSource.getRepository<ICategory>(Categories).find();
-  if (!resp) throw new Error('No se encontraron categorías');
-  return resp;
+  return await AppDataSource.getRepository<ICategory>(Categories).find();
 };
