@@ -6,6 +6,8 @@ import Fastify from "fastify";
 import cors from "@fastify/cors";
 import { AppDataSource } from "../config/typeorm.config";
 
+import categoryRoutes from "../modules/category/category.routes";
+
 console.log("urls_allowed", process.env.CORS_URLS);
 
 const start = async () => {
@@ -27,6 +29,8 @@ const start = async () => {
         }
       }
     });
+
+    app.register(categoryRoutes);
 
     await app.listen({
       port: 4001,
