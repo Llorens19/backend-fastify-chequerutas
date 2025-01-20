@@ -1,4 +1,4 @@
-// routes/auth.routes.ts
+// Interfaces
 import { FastifyInstance } from "fastify";
 
 // Importamos los casos de uso

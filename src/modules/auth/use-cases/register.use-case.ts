@@ -1,7 +1,9 @@
 
 //Interfaces
-import { FastifyRequest } from "fastify";
 import { IResp } from "../../../shared/interfaces/respUtils.interface";
+import { IRegister } from "../interfaces/register.interface";
+import { IUserGeneric } from "../../../shared/interfaces/entities/user.interface";
+import { IUseCaseGenericInput } from "../../../shared/interfaces/useCaseGenericInpur.interface";
 
 //Repositories
 import { getUserByEmailRepo, registerAdminRepo, registerClientRepo, registerRepo } from "../auth.repo";
@@ -12,12 +14,11 @@ import bcrypt from 'bcrypt';
 
 //Error
 import { ErrorResp } from "../../../shared/utils/error.util";
-import { IRegister } from "../interfaces/register.interface";
-import { IUserGeneric } from "../../../shared/interfaces/entities/user.interface";
 
 
 
-export const registerUseCase = async (data: FastifyRequest): Promise<IResp<IUserGeneric>> => {
+
+export const registerUseCase = async (data: IUseCaseGenericInput): Promise<IResp<IUserGeneric>> => {
   const { email, username, password, name, surname, birthdate, role } = data.body as IUserGeneric;
 
   if (!email || !username || !password || !name || !surname || !birthdate || !role) {
