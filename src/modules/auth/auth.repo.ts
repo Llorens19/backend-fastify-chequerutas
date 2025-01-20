@@ -19,20 +19,18 @@ const connectionClient = AppDataSource.getRepository<IClientFields>(Clients);
 export const getUserByEmailRepo = async (email: string): Promise<IUserGeneric | null> => {
   const user = await connection.findOne({ where: { email } });
 
-  console.log(user);
-
-
   if (!user) return null;
 
-  if (user.role === 'admin') {
-    console.log(user.idUser);
-    const admin = await connectionAdmin.findOne({ where: { idUser: user.idUser } });
+  const {role, idUser} = user;
+
+  if (role === 'admin') {
+    const admin = await connectionAdmin.findOne({ where: { idUser: idUser } });
     if (!admin) return null;
     return { ...user, admin };
   }
 
-  if (user.role === 'client') {
-    const client = await connectionClient.findOne({ where: { idUser: user.idUser } });
+  if (role === 'client') {
+    const client = await connectionClient.findOne({ where: { idUser: idUser } });
     if (!client) return null;
     return { ...user, client };
   }
@@ -46,9 +44,7 @@ export const registerRepo = async (user: IRegister): Promise<IUserGeneric> => {
 };
 
 export const registerAdminRepo = async (user: IRegister): Promise<IAdminFields> => {
-  const response = await connectionAdmin.save(user);
-  console.log(response);
-  return response;
+  return await connectionAdmin.save(user);
 };
 
 export const registerClientRepo = async (user: IRegister): Promise<IClientFields> => {

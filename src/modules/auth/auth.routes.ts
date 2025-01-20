@@ -1,13 +1,13 @@
-//Interfaces
+// routes/auth.routes.ts
 import { FastifyInstance } from "fastify";
 
-//Controller
-import { registerController } from "./auth.controller";
-
+// Importamos los casos de uso
+import { registerUseCase } from "./use-cases/register.use-case";
+import { genericController } from "../../infraGlobal/adapters/input/genericController.adapter";
 
 const authRoutes = (routes: FastifyInstance): void => {
-    routes.post("/register", registerController);
+  routes.post("/register", genericController(registerUseCase));
+  // routes.post("/login", genericController(loginUseCase));
 };
-
 
 export default authRoutes;

@@ -2,11 +2,14 @@
 import { FastifyInstance } from "fastify";
 
 //Controller
-import { getCategoriesController } from "./category.controller";
+import { genericController } from "../../infraGlobal/adapters/input/genericController.adapter";
+
+//Use Cases
+import { getCategoriesUseCase } from "./use-cases/getCategories.use-case";
 
 
 const categoryRoutes = (routes: FastifyInstance): void => {
-    routes.get("/categories", getCategoriesController);
+    routes.get("/categories", genericController(getCategoriesUseCase));
 };
 
 

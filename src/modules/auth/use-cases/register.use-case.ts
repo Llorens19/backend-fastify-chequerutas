@@ -34,28 +34,15 @@ export const registerUseCase = async (data: FastifyRequest): Promise<IResp<IUser
 
   const userBaseCreated = await registerRepo(userRegisterData);
 
-  console.log("idddddddddddddddddddddddddddddddddddddddddddddddddd",userBaseCreated);
+  if (!userBaseCreated) throw new ErrorResp(500, "Error registering user");
 
+  if (role === 'admin') await registerAdminRepo({...userRegisterData, idUser: userBaseCreated.idUser});
 
-  if (!userBaseCreated) {
-    throw new ErrorResp(500, "Error registering user");
-  }
-
-  if (role === 'admin') {
-    await registerAdminRepo({...userRegisterData, idUser: userBaseCreated.idUser});
-  }
-  if (role === 'client') {
-    await registerClientRepo({...userRegisterData, idUser: userBaseCreated.idUser});
-  }
-
+  if (role === 'client') await registerClientRepo({...userRegisterData, idUser: userBaseCreated.idUser});
 
   const userCreated = await getUserByEmailRepo(email);
 
-  console.log("ddddddddddddddddddddddddddddddddddddddddddddddddd",userCreated);
-
-  if (!userCreated) {
-    throw new ErrorResp(500, "Error finding registered user");
-  }
+  if (!userCreated) throw new ErrorResp(500, "Error finding registered user");
 
   return resp(200,  userCreated );
 }
