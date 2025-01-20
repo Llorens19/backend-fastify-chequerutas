@@ -6,8 +6,8 @@ import Fastify from "fastify";
 import cors from "@fastify/cors";
 import { AppDataSource } from "../config/typeorm.config";
 
-import categoryRoutes from '../modules/category/implementation/category.routes';
-import authRoutes from '../modules/auth/implementation/auth.routes';
+import categoryRoutes from '../modules/category/infrastructure/category.routes';
+import authRoutes from '../modules/auth/infrastructure/auth.routes';
 
 
 

@@ -10,7 +10,6 @@ $folders = @(
     "$basePath\domain",
     "$basePath\domain\dto",
     "$basePath\domain\interfaces",
-    "$basePath\implementation",
     "$basePath\infrastructure",
     "$basePath\infrastructure\adapters",
     "$basePath\infrastructure\adapters\output"
@@ -25,7 +24,7 @@ $files = @(
     "$basePath\application\use-cases\get$moduleName.use-case.ts",
     "$basePath\domain\dto\$moduleName.dto.ts",
     "$basePath\domain\interfaces\$moduleName.interface.ts",
-    "$basePath\implementation\$moduleName.routes.ts",
+    "$basePath\infrastructure\$moduleName.routes.ts",
     "$basePath\infrastructure\adapters\output\$moduleName.repo.ts"
 )
 

@@ -12,5 +12,4 @@ const categoryRoutes = (routes: FastifyInstance): void => {
     routes.get("/categories", genericController(getCategoriesUseCase));
 };
 
-
 export default categoryRoutes;
