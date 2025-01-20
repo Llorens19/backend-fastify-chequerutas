@@ -1,9 +1,9 @@
 // Interfaces
 import { FastifyInstance } from "fastify";
 
-// Importamos los casos de uso
-import { registerUseCase } from "./use-cases/register.use-case";
-import { genericController } from "../../infraGlobal/adapters/input/genericController.adapter";
+// Use Cases
+import { genericController } from "../../../infraGlobal/adapters/input/genericController.adapter";
+import { registerUseCase } from "../application/use-cases/register.use-case";
 
 const authRoutes = (routes: FastifyInstance): void => {
   routes.post("/register", genericController(registerUseCase));

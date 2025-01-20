@@ -1,20 +1,19 @@
 
 //Interfaces
-import { IResp } from "../../../shared/interfaces/respUtils.interface";
-import { IRegister } from "../interfaces/register.interface";
-import { IUserGeneric } from "../../../shared/interfaces/entities/user.interface";
-import { IUseCaseGenericInput } from "../../../shared/interfaces/useCaseGenericInpur.interface";
+import { IUserGeneric } from "../../../../shared/interfaces/entities/user.interface";
+import { IResp } from "../../../../shared/interfaces/respUtils.interface";
+import { IUseCaseGenericInput } from "../../../../shared/interfaces/useCaseGenericInpur.interface";
+import { IRegister } from "../../domain/interfaces/register.interface";
 
 //Repositories
-import { getUserByEmailRepo, registerAdminRepo, registerClientRepo, registerRepo } from "../auth.repo";
+import { getUserByEmailRepo, registerAdminRepo, registerClientRepo, registerRepo } from "../../infrastructure/adapters/output/auth.repo";
 
 //Utils
-import { resp } from "../../../shared/utils/resp.util";
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
+import { resp } from "../../../../shared/utils/resp.util";
 
 //Error
-import { ErrorResp } from "../../../shared/utils/error.util";
-
+import { ErrorResp } from "../../../../shared/utils/error.util";
 
 
 
