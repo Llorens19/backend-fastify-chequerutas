@@ -1,4 +1,4 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, Index, ManyToOne } from "typeorm";
 import { Users } from "./Users";
 
 @Index("admins_pkey", ["idAdmin"], { unique: true })
@@ -11,7 +11,6 @@ export class Admins {
   })
   idAdmin: string;
 
-  @ManyToOne(() => Users, (users) => users.admins, { onDelete: "CASCADE" })
-  @JoinColumn([{ name: "id_user", referencedColumnName: "idUser" }])
-  idUser: Users;
+  @Column("uuid", { name: "id_user" })
+  idUser: string;
 }

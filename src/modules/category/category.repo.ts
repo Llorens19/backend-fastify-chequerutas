@@ -5,6 +5,8 @@ import { Categories } from '../../shared/entities/Categories';
 //Entities
 import { ICategory } from './interfaces/category.interface';
 
+const connection = AppDataSource.getRepository<ICategory>(Categories);
+
 export const getCategoriesRepo = async ():Promise<ICategory[]> => {
-  return await AppDataSource.getRepository<ICategory>(Categories).find();
+  return await connection.find();
 };

@@ -20,13 +20,6 @@ import { Routes } from '../shared/entities/Routes';
 if (!process.env.DB_HOST || !process.env.DB_PORT || !process.env.DB_USERNAME || !process.env.DB_PASSWORD || !process.env.DB_DATABASE) {
   throw new Error('Faltan variables de entorno para la conexión a la base de datos');
 }
-
-console.log("DB_HOST:", process.env.DB_HOST);
-console.log("DB_PORT:", process.env.DB_PORT);
-console.log("DB_USERNAME:", process.env.DB_USERNAME);
-console.log("DB_PASSWORD:", process.env.DB_PASSWORD);
-console.log("DB_DATABASE:", process.env.DB_DATABASE);
-
 export const AppDataSource = new DataSource({
   type: "postgres",
   host: process.env.DB_HOST,
@@ -35,7 +28,7 @@ export const AppDataSource = new DataSource({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   synchronize: false,
-  logging: true,
+  logging: false,
   entities: [
     Achievements,
     AchievementsUsers,

@@ -7,6 +7,7 @@ import cors from "@fastify/cors";
 import { AppDataSource } from "../config/typeorm.config";
 
 import categoryRoutes from "../modules/category/category.routes";
+import authRoutes from '../modules/auth/auth.routes';
 
 console.log("urls_allowed", process.env.CORS_URLS);
 
@@ -15,7 +16,7 @@ const start = async () => {
     await AppDataSource.initialize();
     console.log("Base de datos conectada");
 
-    const app = Fastify({ logger: true });
+    const app = Fastify({ logger: false });
 
     await app.register(cors, {
       origin: (origin, callback) => {
@@ -31,6 +32,7 @@ const start = async () => {
     });
 
     app.register(categoryRoutes);
+    app.register(authRoutes);
 
     await app.listen({
       port: 4001,
