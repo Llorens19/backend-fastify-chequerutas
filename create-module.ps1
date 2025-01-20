@@ -1,29 +1,35 @@
 $moduleName = Read-Host "Introduce el nombre del modulo"
 
+
 $basePath = Join-Path -Path (Get-Location) -ChildPath "src\modules\$moduleName"
 
-$folders = @(
-    $basePath,
-    "$basePath\dto",
-    "$basePath\interfaces",
-    "$basePath\use-cases"
-)
 
+$folders = @(
+    "$basePath\application",
+    "$basePath\application\use-cases",
+    "$basePath\domain",
+    "$basePath\domain\dto",
+    "$basePath\domain\interfaces",
+    "$basePath\implementation",
+    "$basePath\infrastructure",
+    "$basePath\infrastructure\adapters",
+    "$basePath\infrastructure\adapters\output"
+)
 
 foreach ($folder in $folders) {
     New-Item -ItemType Directory -Path $folder -Force | Out-Null
 }
 
+
 $files = @(
-    "$basePath\$moduleName.controller.ts",
-    "$basePath\$moduleName.repo.ts",
-    "$basePath\$moduleName.routes.ts",
-    "$basePath\dto\$moduleName.dto.ts",
-    "$basePath\interfaces\$moduleName.interface.ts",
-    "$basePath\use-cases\get$moduleName`s.use-case.ts"
+    "$basePath\application\use-cases\get$moduleName.use-case.ts",
+    "$basePath\domain\dto\$moduleName.dto.ts",
+    "$basePath\domain\interfaces\$moduleName.interface.ts",
+    "$basePath\implementation\$moduleName.routes.ts",
+    "$basePath\infrastructure\adapters\output\$moduleName.repo.ts"
 )
 
-# Crear cada archivo
+
 foreach ($file in $files) {
     New-Item -ItemType File -Path $file -Force | Out-Null
 }

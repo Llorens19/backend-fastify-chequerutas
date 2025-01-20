@@ -6,8 +6,10 @@ import Fastify from "fastify";
 import cors from "@fastify/cors";
 import { AppDataSource } from "../config/typeorm.config";
 
-import categoryRoutes from "../modules/category/category.routes";
+import categoryRoutes from '../modules/category/implementation/category.routes';
 import authRoutes from '../modules/auth/auth.routes';
+
+
 
 console.log("urls_allowed", process.env.CORS_URLS);
 
