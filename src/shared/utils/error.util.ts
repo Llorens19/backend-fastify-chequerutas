@@ -1,8 +1,10 @@
 export class ErrorResp extends Error {
-  code: number;
+  state: number;
+  code: string;
 
-  constructor(code: number, message: string) {
+  constructor(state: number, code:string, message: string) {
     super(message);
+    this.state = state;
     this.code = code;
     this.name = 'ErrorResponse';
   }

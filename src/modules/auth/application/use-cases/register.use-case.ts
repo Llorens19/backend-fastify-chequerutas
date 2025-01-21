@@ -13,7 +13,8 @@ import bcrypt from "bcrypt";
 import { resp } from "../../../../shared/utils/resp.util";
 
 //Error
-import { ErrorResp } from "../../../../shared/utils/error.util";
+import { ErrorsAuth } from "../../domain/errors/auth.errors";
+import { Errors } from "../../../../shared/errors/errors.error";
 
 
 
@@ -21,12 +22,12 @@ export const registerUseCase = async (data: IUseCaseGenericInput): Promise<IResp
   const { email, username, password, name, surname, birthdate, role } = data.body as IUserGeneric;
 
   if (!email || !username || !password || !name || !surname || !birthdate || !role) {
-    throw new ErrorResp(400, "Missing fields");
+    throw Errors.MissingFields;
   }
 
   const user = await getUserByEmailRepo(email);
 
-  if (user) throw new ErrorResp(400, "Email already in use");
+  if (user) throw ErrorsAuth.EmailAlreadyInUse;
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -34,7 +35,7 @@ export const registerUseCase = async (data: IUseCaseGenericInput): Promise<IResp
 
   const userBaseCreated = await registerRepo(userRegisterData);
 
-  if (!userBaseCreated) throw new ErrorResp(500, "Error registering user");
+  if (!userBaseCreated) throw ErrorsAuth.ErrorRegisteringUser;
 
   if (role === 'admin') await registerAdminRepo({...userRegisterData, idUser: userBaseCreated.idUser});
 
@@ -42,7 +43,7 @@ export const registerUseCase = async (data: IUseCaseGenericInput): Promise<IResp
 
   const userCreated = await getUserByEmailRepo(email);
 
-  if (!userCreated) throw new ErrorResp(500, "Error finding registered user");
+  if (!userCreated) throw ErrorsAuth.ErrorGettingRegisteredUser;
 
   return resp(200,  userCreated );
 }

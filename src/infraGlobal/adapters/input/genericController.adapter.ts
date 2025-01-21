@@ -12,7 +12,7 @@ export const genericController = (useCase: IUseCaseFunction) => {
     } catch (error: unknown) {
 
       if (error instanceof ErrorResp) {
-        return reply.code(error.code).send({ error: error.message });
+        return reply.code(error.state).send({ code: error.code, error: error.message });
       }
       if (error instanceof Error) {
         console.error(error.message);

@@ -40,7 +40,6 @@ export const getUserByEmailRepo = async (email: string): Promise<IUserGeneric | 
   return user;
 }
 
-
 export const registerRepo = async (user: IRegister): Promise<IUserGeneric> => {
   return await connection.save(user);
 };
@@ -52,9 +51,3 @@ export const registerAdminRepo = async (user: IRegister): Promise<IAdminFields> 
 export const registerClientRepo = async (user: IRegister): Promise<IClientFields> => {
   return await connectionClient.save(user);
 };
-
-// export const getUserRoll = async (email: string): Promise<string> => {
-//   const user = await connection.findOne({ where: { email } });
-//   if (!role) return '';
-//   return role;
-// }

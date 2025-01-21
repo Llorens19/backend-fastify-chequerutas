@@ -8,11 +8,7 @@ import { AppDataSource } from "../config/typeorm.config";
 
 import categoryRoutes from '../modules/category/infrastructure/category.routes';
 import authRoutes from '../modules/auth/infrastructure/auth.routes';
-
-
-
-
-console.log("urls_allowed", process.env.CORS_URLS);
+import fastifyRedis from '@fastify/redis';
 
 const start = async () => {
   try {
@@ -21,10 +17,15 @@ const start = async () => {
 
     const app = Fastify({ logger: false });
 
+    await app.register(fastifyRedis, {
+      host: process.env.REDIS_HOST,
+      port: Number(process.env.REDIS_PORT),
+      password: process.env.REDIS_PASSWORD,
+    });
+
     await app.register(cors, {
       origin: (origin, callback) => {
         const urls_allowed = process.env.CORS_URLS?.split(",") || [];
-
 
         if (!origin || urls_allowed.includes(origin)) {
           callback(null, true);
@@ -38,13 +39,13 @@ const start = async () => {
     app.register(authRoutes);
 
     await app.listen({
-      port: 4001,
-      host: '0.0.0.0'
+      port: Number(process.env.PORT) || 4001,
+      host: process.env.HOST || '0.0.0.0',
     });
 
-    console.log('Servidor Fastify ejecutándose en http://0.0.0.0:4001');
-  } catch (err) {
-    console.error('Error al iniciar el servidor:', err);
+    console.log(`Servidor Fastify ejecutándose en http://${process.env.HOST}:${process.env.PORT}`);
+  } catch (error: unknown) {
+    console.error('Error al iniciar el servidor:', error);
     process.exit(1);
   }
 };
