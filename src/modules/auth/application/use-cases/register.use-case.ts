@@ -2,11 +2,7 @@
 //Interfaces
 import { IUserGeneric } from "../../../../shared/interfaces/entities/user.interface";
 import { IResp } from "../../../../shared/interfaces/respUtils.interface";
-import { IUseCaseGenericInput } from "../../../../shared/interfaces/useCaseGenericInpur.interface";
 import { IRegister } from "../../domain/interfaces/register.interface";
-
-//Repositories
-import { getUserByEmailRepo, registerAdminRepo, registerClientRepo, registerRepo } from "../../infrastructure/adapters/output/auth.adapter";
 
 //Utils
 import bcrypt from "bcrypt";
@@ -17,17 +13,20 @@ import { ErrorsAuth } from "../../domain/errors/auth.errors";
 import { Errors } from "../../../../shared/errors/errors.error";
 import { userDTO } from "../../domain/dto/user.dto";
 import { IUserResp } from "../../domain/interfaces/userResp.interface";
+import { IUseCaseData } from "../../../../presentation/ports/genericInput.port";
+import { IAuthOutputPort } from "../../infrastructure/port/auth.port";
 
 
 
-export const registerUseCase = async (data: IUseCaseGenericInput): Promise<IResp<IUserResp>> => {
-  const { email, username, password, name, surname, birthdate, role } = data.body as IUserGeneric;
+export const registerUseCase = async ({request, repo}: IUseCaseData<IAuthOutputPort>): Promise<IResp<IUserResp>> => {
+
+  const { email, username, password, name, surname, birthdate, role } = request!.body as IUserGeneric;
 
   if (!email || !username || !password || !name || !surname || !birthdate || !role) {
     throw Errors.MissingFields;
   }
 
-  const user = await getUserByEmailRepo(email);
+  const user = await repo.getUserByEmailRepo(email);
 
   if (user) throw ErrorsAuth.EmailAlreadyInUse;
 
@@ -35,15 +34,15 @@ export const registerUseCase = async (data: IUseCaseGenericInput): Promise<IResp
 
   const userRegisterData = {email, username, password: hashedPassword, name, surname, birthdate, role} as IRegister;
 
-  const userBaseCreated = await registerRepo(userRegisterData);
+  const userBaseCreated = await repo.registerRepo(userRegisterData);
 
   if (!userBaseCreated) throw ErrorsAuth.ErrorRegisteringUser;
 
-  if (role === 'admin') await registerAdminRepo({...userRegisterData, idUser: userBaseCreated.idUser});
+  if (role === 'admin') await repo.registerAdminRepo({...userRegisterData, idUser: userBaseCreated.idUser});
 
-  if (role === 'client') await registerClientRepo({...userRegisterData, idUser: userBaseCreated.idUser});
+  if (role === 'client') await repo.registerClientRepo({...userRegisterData, idUser: userBaseCreated.idUser});
 
-  const userCreated = await getUserByEmailRepo(email);
+  const userCreated = await repo.getUserByEmailRepo(email);
 
   if (!userCreated) throw ErrorsAuth.ErrorGettingRegisteredUser;
 

@@ -1,10 +1,7 @@
 
 //Interfaces
 import { IResp } from "../../../../shared/interfaces/respUtils.interface";
-import { IUseCaseGenericInput } from "../../../../shared/interfaces/useCaseGenericInpur.interface";
-
 //Repositories
-import { getUserByEmailRepo } from "../../infrastructure/adapters/output/auth.adapter";
 
 //Utils
 import bcrypt from "bcrypt";
@@ -15,12 +12,16 @@ import jwt from 'jsonwebtoken';
 //Error
 import { userDTO } from "../../domain/dto/user.dto";
 import { ErrorsAuth } from "../../domain/errors/auth.errors";
+import { IUseCaseData } from "../../../../presentation/ports/genericInput.port";
+import { IAuthOutputPort } from "../../infrastructure/port/auth.port";
 
 
-export const loginUseCase = async (data: IUseCaseGenericInput): Promise<IResp<ILoginOutput>> => {
-  const { email, password } = data.body as ILoginInput;
-  const { redis } = data.server;
-  const user = await getUserByEmailRepo(email);
+export const loginUseCase = async ({request, repo}: IUseCaseData<IAuthOutputPort>): Promise<IResp<ILoginOutput>> => {
+
+  const { email, password } = request!.body as ILoginInput;
+  const { redis } = request!.server;
+
+  const user = await repo.getUserByEmailRepo(email);
   if (!user) throw ErrorsAuth.UserNotFound;
   const isPasswordCorrect = await bcrypt.compare(password, user.password);
 

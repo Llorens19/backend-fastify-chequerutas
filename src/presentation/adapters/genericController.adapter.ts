@@ -1,13 +1,13 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { ErrorResp } from "../../../shared/utils/error.util";
-import { IUseCaseFunction } from "../../ports/input/genericInput.port";
+import { ErrorResp } from "../../shared/utils/error.util";
+import { IUseCaseFunction } from "../ports/genericInput.port";
 
-export const genericController = (useCase: IUseCaseFunction) => {
+export const genericController = <T>(useCase: IUseCaseFunction<T>, repo:T) => {
 
   return async (request: FastifyRequest, reply: FastifyReply) => {
 
     try {
-      const { status, result } = await useCase(request);
+      const { status, result } = await useCase({request, repo});
       return reply.code(status).send(result);
     } catch (error: unknown) {
 
