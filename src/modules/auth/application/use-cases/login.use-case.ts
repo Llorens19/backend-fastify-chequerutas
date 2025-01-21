@@ -4,7 +4,7 @@ import { IResp } from "../../../../shared/interfaces/respUtils.interface";
 import { IUseCaseGenericInput } from "../../../../shared/interfaces/useCaseGenericInpur.interface";
 
 //Repositories
-import { getUserByEmailRepo } from "../../infrastructure/adapters/output/auth.repo";
+import { getUserByEmailRepo } from "../../infrastructure/adapters/output/auth.adapter";
 
 //Utils
 import bcrypt from "bcrypt";
