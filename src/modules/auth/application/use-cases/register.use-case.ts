@@ -6,7 +6,7 @@ import { IUseCaseGenericInput } from "../../../../shared/interfaces/useCaseGener
 import { IRegister } from "../../domain/interfaces/register.interface";
 
 //Repositories
-import { getUserByEmailRepo, registerAdminRepo, registerClientRepo, registerRepo } from "../../infrastructure/adapters/output/auth.adapter";
+import { getUserByEmailRepo, registerAdminRepo, registerClientRepo, registerRepo } from "../../infrastructure/adapters/auth.adapter";
 
 //Utils
 import bcrypt from "bcrypt";

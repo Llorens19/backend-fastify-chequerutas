@@ -1,24 +1,23 @@
-
 //Interfaces
 import { IResp } from "../../../../shared/interfaces/respUtils.interface";
-
-//Repositories
-import { getCategoriesRepo } from "../../infrastructure/adapters/output/category.adapter";
+import { ICategories } from "../../domain/interfaces/category.interface";
 
 //Utils
 import { resp } from "../../../../shared/utils/resp.util";
-import { ICategories } from "../../domain/interfaces/category.interface";
 
 //Error
 import { ErrorsCategory } from "../../domain/errors/category.errors";
+import { ICategoryOutputPort } from "../../infrastructure/ports/category.port";
+import { CategoriesRepoAdapter } from "../../infrastructure/adapters/category.adapter";
+import { IUseCaseGenericInput } from "../../../../shared/interfaces/useCaseGenericInpur.interface";
+import { IUseCaseData } from "../../../../presentation/ports/genericInput.port";
 
+export const getCategoriesUseCase = async ({ repo }: IUseCaseData<ICategoryOutputPort>): Promise<IResp<ICategories>> => {
 
-
-export const getCategoriesUseCase = async (): Promise<IResp<ICategories>> => {
-  const response = await getCategoriesRepo();
+  const response = await repo.getCategories();
 
   if (!response) {
     throw ErrorsCategory.ErrorGettingCategories;
   }
   return resp(200, { categories: response });
-}
+};

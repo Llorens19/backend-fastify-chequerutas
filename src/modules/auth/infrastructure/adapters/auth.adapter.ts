@@ -1,16 +1,16 @@
 //Conexion
-import { AppDataSource } from '../../../../../config/typeorm.config';
+import { AppDataSource } from '../../../../config/typeorm.config';
 
 //Interfaces
-import { IUser, IUserGeneric } from '../../../../../shared/interfaces/entities/user.interface';
-import { IAdminFields } from '../../../../../shared/interfaces/entities/admin.interface';
-import { IClientFields } from '../../../../../shared/interfaces/entities/client.interface';
-import { IRegister } from '../../../domain/interfaces/register.interface';
+import { IUser, IUserGeneric } from '../../../../shared/interfaces/entities/user.interface';
+import { IAdminFields } from '../../../../shared/interfaces/entities/admin.interface';
+import { IClientFields } from '../../../../shared/interfaces/entities/client.interface';
+import { IRegister } from '../../domain/interfaces/register.interface';
 
 //Entities
-import { Users } from '../../../../../shared/entities/Users';
-import { Admins } from '../../../../../shared/entities/Admins';
-import { Clients } from '../../../../../shared/entities/Clients';
+import { Users } from '../../../../shared/entities/Users';
+import { Admins } from '../../../../shared/entities/Admins';
+import { Clients } from '../../../../shared/entities/Clients';
 
 
 const connection = AppDataSource.getRepository<IUser>(Users);

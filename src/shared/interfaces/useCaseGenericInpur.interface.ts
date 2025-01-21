@@ -8,4 +8,5 @@ export interface IUseCaseGenericInput {
   server: {
     redis: Redis;
   };
+  middlewareData?: unknown;
 }
