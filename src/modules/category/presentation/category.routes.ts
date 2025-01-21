@@ -11,7 +11,7 @@ import { CategoriesRepoAdapter } from "../infrastructure/adapters/category.adapt
 const categoriesPort = new CategoriesRepoAdapter();
 
 const categoryRoutes = (routes: FastifyInstance): void => {
-    routes.get("/categories", genericController(getCategoriesUseCase, categoriesPort));
+  routes.get("/categories", genericController(getCategoriesUseCase, categoriesPort));
 };
 
 export default categoryRoutes;

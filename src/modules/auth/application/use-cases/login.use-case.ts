@@ -12,8 +12,8 @@ import jwt from 'jsonwebtoken';
 //Error
 import { userDTO } from "../../domain/dto/user.dto";
 import { ErrorsAuth } from "../../domain/errors/auth.errors";
-import { IUseCaseData } from "../../../../presentation/ports/genericInput.port";
 import { IAuthOutputPort } from "../../infrastructure/port/auth.port";
+import { IUseCaseData } from "../../../../shared/interfaces/useCaseGenericInpur.interface";
 
 
 export const loginUseCase = async ({request, repo}: IUseCaseData<IAuthOutputPort>): Promise<IResp<ILoginOutput>> => {

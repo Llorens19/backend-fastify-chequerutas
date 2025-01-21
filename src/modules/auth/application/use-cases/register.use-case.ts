@@ -13,8 +13,8 @@ import { ErrorsAuth } from "../../domain/errors/auth.errors";
 import { Errors } from "../../../../shared/errors/errors.error";
 import { userDTO } from "../../domain/dto/user.dto";
 import { IUserResp } from "../../domain/interfaces/userResp.interface";
-import { IUseCaseData } from "../../../../presentation/ports/genericInput.port";
 import { IAuthOutputPort } from "../../infrastructure/port/auth.port";
+import { IUseCaseData } from "../../../../shared/interfaces/useCaseGenericInpur.interface";
 
 
 
