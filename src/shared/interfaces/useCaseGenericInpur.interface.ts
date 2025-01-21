@@ -9,9 +9,16 @@ export interface IUseCaseGenericInput {
   body: unknown;
   params: unknown;
   query: unknown;
-  headers: unknown;
+  headers: {
+    authorization?: string;
+  };
   server: {
     redis: Redis;
   };
-  middlewareData?: unknown;
+  middlewareData?: {
+    idUser: string;
+    username: string;
+    email: string;
+    role: string;
+  };
 }
