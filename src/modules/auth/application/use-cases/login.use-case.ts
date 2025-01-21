@@ -9,16 +9,16 @@ import { getUserByEmailRepo } from "../../infrastructure/adapters/output/auth.ad
 //Utils
 import bcrypt from "bcrypt";
 import { resp } from "../../../../shared/utils/resp.util";
-import { ILogin } from "../../domain/interfaces/login.interface";
+import { ILoginInput, ILoginOutput } from "../../domain/interfaces/login.interface";
 import jwt from 'jsonwebtoken';
 
 //Error
-import { ILoginResponse } from "../../domain/dto/login.dto";
+import { userDTO } from "../../domain/dto/user.dto";
 import { ErrorsAuth } from "../../domain/errors/auth.errors";
 
 
-export const loginUseCase = async (data: IUseCaseGenericInput): Promise<IResp<ILoginResponse>> => {
-  const { email, password } = data.body as ILogin;
+export const loginUseCase = async (data: IUseCaseGenericInput): Promise<IResp<ILoginOutput>> => {
+  const { email, password } = data.body as ILoginInput;
   const { redis } = data.server;
   const user = await getUserByEmailRepo(email);
   if (!user) throw ErrorsAuth.UserNotFound;
@@ -38,10 +38,9 @@ export const loginUseCase = async (data: IUseCaseGenericInput): Promise<IResp<IL
   }, process.env.JWT_SECRET as string,
     { expiresIn: process.env.ACCESS_TOKEN_EXPIRATION }
   );
-  const { password: _, ...userWithoutPassword } = user;
-  const response: ILoginResponse = { ...userWithoutPassword, token };
+  const userResp = userDTO(user);
 
-  await redis.set(`user:${idUser}`, JSON.stringify(response), 'EX', Number(process.env.REDIS_EXPIRATION));
+  await redis.set(`user:${idUser}`, JSON.stringify(user), 'EX', Number(process.env.REDIS_EXPIRATION));
 
-  return resp(200, response);
+  return resp(200, { ...userResp, token });
 }

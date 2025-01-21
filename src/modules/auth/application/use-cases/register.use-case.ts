@@ -15,10 +15,12 @@ import { resp } from "../../../../shared/utils/resp.util";
 //Error
 import { ErrorsAuth } from "../../domain/errors/auth.errors";
 import { Errors } from "../../../../shared/errors/errors.error";
+import { userDTO } from "../../domain/dto/user.dto";
+import { IUserResp } from "../../domain/interfaces/userResp.interface";
 
 
 
-export const registerUseCase = async (data: IUseCaseGenericInput): Promise<IResp<IUserGeneric>> => {
+export const registerUseCase = async (data: IUseCaseGenericInput): Promise<IResp<IUserResp>> => {
   const { email, username, password, name, surname, birthdate, role } = data.body as IUserGeneric;
 
   if (!email || !username || !password || !name || !surname || !birthdate || !role) {
@@ -45,5 +47,7 @@ export const registerUseCase = async (data: IUseCaseGenericInput): Promise<IResp
 
   if (!userCreated) throw ErrorsAuth.ErrorGettingRegisteredUser;
 
-  return resp(200,  userCreated );
+  const userResp = userDTO(userCreated);
+
+  return resp(200,  userResp );
 }
