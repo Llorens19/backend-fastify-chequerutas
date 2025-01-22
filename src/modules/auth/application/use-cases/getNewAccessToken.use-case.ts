@@ -20,19 +20,15 @@ export const getNewAccessToken = async ({ request, repo }: IUseCaseData<IAuthOut
   try {
 
     const tokenSearchedWhiteList = await repo.searchRefreshToken(refreshToken);
-    console.log(1)
 
     console.log(tokenSearchedWhiteList)
     if (!tokenSearchedWhiteList) throw Errors.Forbidden;
 
     const tokenSearchedBlackList = await repo.searchBlackListToken(refreshToken);
-    console.log(2)
-    console.log(tokenSearchedBlackList)
+
     if (tokenSearchedBlackList) throw Errors.Forbidden;
-    console.log(2.5)
 
     const { user } = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET as string) as IJwtToken;
-    console.log(3.5)
 
     const { idUser, role, username, email } = user;
 
@@ -46,7 +42,6 @@ export const getNewAccessToken = async ({ request, repo }: IUseCaseData<IAuthOut
       }, process.env.ACCESS_TOKEN_SECRET as string,
         { expiresIn: process.env.ACCESS_TOKEN_EXPIRATION }
       );
-      console.log(3)
 
       if (!user) throw Errors.Forbidden;
 
