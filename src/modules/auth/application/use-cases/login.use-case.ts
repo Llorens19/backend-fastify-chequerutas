@@ -12,8 +12,8 @@ import jwt from 'jsonwebtoken';
 //Error
 import { userDTO } from "../../domain/dto/user.dto";
 import { ErrorsAuth } from "../../domain/errors/auth.errors";
-import { IUseCaseData } from "../../../../presentation/ports/genericInput.port";
 import { IAuthOutputPort } from "../../infrastructure/port/auth.port";
+import { IUseCaseData } from "../../../../shared/interfaces/useCaseGenericInpur.interface";
 
 
 export const loginUseCase = async ({request, repo}: IUseCaseData<IAuthOutputPort>): Promise<IResp<ILoginOutput>> => {
@@ -29,19 +29,33 @@ export const loginUseCase = async ({request, repo}: IUseCaseData<IAuthOutputPort
 
   const { idUser, role, username } = user;
 
-  const token = jwt.sign({
+  const accessToken = jwt.sign({
     user: {
       idUser,
       role,
       username,
       email
     }
-  }, process.env.JWT_SECRET as string,
+  }, process.env.ACCESS_TOKEN_SECRET as string,
     { expiresIn: process.env.ACCESS_TOKEN_EXPIRATION }
   );
+
+  const refreshToken = jwt.sign({
+    user: {
+      idUser,
+      role,
+      username,
+      email
+    }
+  }, process.env.REFRESH_TOKEN_SECRET as string,
+    { expiresIn: process.env.REFRESH_TOKEN_EXPIRATION }
+  );
+
   const userResp = userDTO(user);
+
+  await repo.addRefreshTokenRepo(refreshToken, user.idUser, Number(process.env.REFRESH_TOKEN_EXPIRATION));
 
   await redis.set(`user:${idUser}`, JSON.stringify(user), 'EX', Number(process.env.REDIS_EXPIRATION));
 
-  return resp(200, { ...userResp, token });
+  return resp(200, { ...userResp, accessToken, refreshToken });
 }

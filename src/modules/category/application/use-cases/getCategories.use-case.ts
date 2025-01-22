@@ -8,7 +8,7 @@ import { resp } from "../../../../shared/utils/resp.util";
 //Error
 import { ErrorsCategory } from "../../domain/errors/category.errors";
 import { ICategoryOutputPort } from "../../infrastructure/ports/category.port";
-import { IUseCaseData } from "../../../../presentation/ports/genericInput.port";
+import { IUseCaseData } from "../../../../shared/interfaces/useCaseGenericInpur.interface";
 
 export const getCategoriesUseCase = async ({ repo }: IUseCaseData<ICategoryOutputPort>): Promise<IResp<ICategories>> => {
 

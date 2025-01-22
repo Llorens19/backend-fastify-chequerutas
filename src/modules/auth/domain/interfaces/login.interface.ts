@@ -6,5 +6,6 @@ export interface ILoginInput {
 }
 
 export interface ILoginOutput extends IUserResp{
-  token: string;
+  accessToken: string;
+  refreshToken: string;
 }
