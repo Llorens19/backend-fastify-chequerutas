@@ -15,7 +15,7 @@ const verifyJWT = async (request: IUseCaseGenericInput, reply: FastifyReply): Pr
   const token = authHeader.split(' ')[1];
 
   try {
-    const { user } = jwt.verify(token, process.env.ACCESS_TOKEN_EXPIRATION as string) as IJwtToken;
+    const { user } = jwt.verify(token, process.env.JWT_SECRET as string) as IJwtToken;
 
     request.middlewareData = {
       idUser: user.idUser,
