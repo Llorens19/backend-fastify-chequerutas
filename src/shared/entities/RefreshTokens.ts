@@ -24,9 +24,6 @@ export class RefreshTokens {
   })
   createdAt: Date | null;
 
-  @ManyToOne(() => Users, (users) => users.refreshTokens, {
-    onDelete: "CASCADE",
-  })
-  @JoinColumn([{ name: "id_user", referencedColumnName: "idUser" }])
-  idUser: Users;
+  @Column("uuid", { name: "id_user" })
+  idUser: string;
 }

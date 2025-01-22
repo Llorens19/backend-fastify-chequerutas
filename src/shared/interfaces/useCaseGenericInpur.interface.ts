@@ -11,6 +11,7 @@ export interface IUseCaseGenericInput {
   query: unknown;
   headers: {
     authorization?: string;
+    refresh_authorization?: string;
   };
   server: {
     redis: Redis;

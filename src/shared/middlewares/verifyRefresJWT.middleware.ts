@@ -6,7 +6,7 @@ import { Errors } from '../errors/errors.error';
 
 
 const verifyJWT = async (request: IUseCaseGenericInput, reply: FastifyReply): Promise<void> => {
-  const authHeader = request.headers.authorization;
+  const authHeader = request.headers.refresh_authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     throw Errors.Unautorized;

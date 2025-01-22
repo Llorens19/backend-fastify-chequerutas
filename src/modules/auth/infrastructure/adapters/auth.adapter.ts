@@ -1,5 +1,6 @@
 //Conexion
 import { AppDataSource } from '../../../../config/typeorm.config';
+import { MoreThan } from 'typeorm';
 
 //Interfaces
 import { IUser, IUserGeneric } from '../../../../shared/interfaces/entities/user.interface';
@@ -12,11 +13,18 @@ import { Users } from '../../../../shared/entities/Users';
 import { Admins } from '../../../../shared/entities/Admins';
 import { Clients } from '../../../../shared/entities/Clients';
 import { IAuthOutputPort } from '../port/auth.port';
+import { IBlackList } from '../../../../shared/interfaces/entities/blackList.interface';
+import { BlacklistTokens } from '../../../../shared/entities/BlacklistTokens';
+import { IRefreshToken } from '../../../../shared/interfaces/entities/refresToken.interface';
+import { RefreshTokens } from '../../../../shared/entities/RefreshTokens';
+
 
 
 const connection = AppDataSource.getRepository<IUser>(Users);
 const connectionAdmin = AppDataSource.getRepository<IAdminFields>(Admins);
 const connectionClient = AppDataSource.getRepository<IClientFields>(Clients);
+const connectionTokenBlackList = AppDataSource.getRepository<IBlackList>(BlacklistTokens);
+const connectionRefreshToken = AppDataSource.getRepository<IRefreshToken>(RefreshTokens);
 
 export class AuthRepoAdapter implements IAuthOutputPort {
 
@@ -53,4 +61,21 @@ export class AuthRepoAdapter implements IAuthOutputPort {
   registerClientRepo = async (user: IRegister): Promise<IClientFields> => {
     return await connectionClient.save(user);
   };
+
+  addTokenToBlacklistRepo = async (token: string): Promise<void> => {
+    await connectionTokenBlackList.save({ token, expiresAt: new Date(Date.now()) });
+  }
+
+  addRefreshTokenRepo = async (token: string, idUser: string, expiresTime: number): Promise<IRefreshToken> => {
+    return await connectionRefreshToken.save({ token, idUser, expiresAt: new Date(Date.now() + (expiresTime*1000)) });
+  }
+
+  searchRefreshToken = async (token: string): Promise<IRefreshToken | null> => {
+    return await connectionRefreshToken.findOne({ where: { token, expiresAt: MoreThan(new Date()) } });
+  }
+
+  searchBlackListToken = async (token: string): Promise<IBlackList | null> => {
+    return await connectionTokenBlackList.findOne({ where: { token } });
+  }
+
 }
