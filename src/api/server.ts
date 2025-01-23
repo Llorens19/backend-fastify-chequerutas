@@ -9,6 +9,7 @@ import { AppDataSource } from "../config/typeorm.config";
 import categoryRoutes from '../modules/category/presentation/category.routes';
 import authRoutes from '../modules/auth/presentation/auth.routes';
 import fastifyRedis from '@fastify/redis';
+import profileRoutes from '../modules/profile/presentation/profile.routes';
 
 const start = async () => {
   try {
@@ -37,6 +38,7 @@ const start = async () => {
 
     app.register(categoryRoutes);
     app.register(authRoutes);
+    app.register(profileRoutes);
 
     await app.listen({
       port: Number(process.env.PORT) || 4001,

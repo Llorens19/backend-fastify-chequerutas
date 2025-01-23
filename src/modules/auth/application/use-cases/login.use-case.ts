@@ -53,9 +53,9 @@ export const loginUseCase = async ({request, repo}: IUseCaseData<IAuthOutputPort
 
   const userResp = userDTO(user);
 
-  await repo.addRefreshTokenRepo(refreshToken, user.idUser, Number(process.env.REFRESH_TOKEN_EXPIRATION));
+  await repo.addRefreshTokenRepo(refreshToken, user.idUser, Number(process.env.REFRESH_TOKEN_EXPIRATION_SECONDS));
 
-  await redis.set(`user:${idUser}`, JSON.stringify(user), 'EX', Number(process.env.REDIS_EXPIRATION));
+  await redis.set(`user:${username}`, JSON.stringify(user), 'EX', Number(process.env.REDIS_EXPIRATION));
 
   return resp(200, { ...userResp, accessToken, refreshToken });
 }
