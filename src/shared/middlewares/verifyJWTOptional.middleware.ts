@@ -5,7 +5,7 @@ import { IJwtToken } from '../interfaces/JWT/jwt.interface';
 import { Errors } from '../errors/errors.error';
 
 
-const verifyJWT = async (request: IUseCaseGenericInput, reply: FastifyReply): Promise<void> => {
+const verifyJWTOptional = async (request: IUseCaseGenericInput, reply: FastifyReply): Promise<void> => {
   const authHeader = request.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -28,4 +28,4 @@ const verifyJWT = async (request: IUseCaseGenericInput, reply: FastifyReply): Pr
   }
 };
 
-export default verifyJWT;
+export default verifyJWTOptional;
