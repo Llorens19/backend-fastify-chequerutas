@@ -1,19 +1,18 @@
 //Interfaces
-import { IResp } from "../../../../shared/interfaces/respUtils.interface";
-import { IUseCaseData } from "../../../../shared/interfaces/useCaseGenericInpur.interface";
-import { IGetProfileInput } from "../../domain/interfaces/getProfile.interface";
-import { IProfileOutputPort } from "../../infrastructure/ports/profile.port";
-import { IProfileResp } from "../../domain/interfaces/profile.interface";
+import { IResp } from "@/shared/interfaces/respUtils.interface";
+import { IUseCaseData } from "@/shared/interfaces/useCaseGenericInpur.interface";
+import { IProfileResp } from "@/modules/profile/domain/interfaces/profile.interface";
+import { IProfileOutputPort } from "@/modules/profile/infrastructure/ports/profile.port";
+import { IEditProfileInput } from "@/modules/profile/domain/interfaces/editProfile.intput";
 
 //Utils
-import { resp } from "../../../../shared/utils/resp.util";
+import { resp } from "@/shared/utils/resp.util";
 
 //Error
-import { ErrorsProfile } from "../../domain/errors/profile.errors";
-import { profileDTO } from "../../domain/dto/profile.dto";
-import { IUserGeneric } from "../../../../shared/interfaces/entities/user.interface";
-import { IEditProfileInput } from "../../domain/interfaces/editProfile.intput";
+import { ErrorsProfile } from "@/modules/profile/domain/errors/profile.errors";
 
+//DTO
+import { profileDTO } from "@/modules/profile/domain/dto/profile.dto";
 
 
 export const editProfileUseCase = async ({ repo, request }: IUseCaseData<IProfileOutputPort>): Promise<IResp<IProfileResp>> => {

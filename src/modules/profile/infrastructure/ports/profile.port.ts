@@ -1,6 +1,6 @@
-import { IAdminFields } from "../../../../shared/interfaces/entities/admin.interface";
-import { IUserGeneric } from "../../../../shared/interfaces/entities/user.interface";
-import { IEditProfileInput } from "../../domain/interfaces/editProfile.intput";
+import { IEditProfileInput } from "@/modules/profile/domain/interfaces/editProfile.intput";
+import { IUserGeneric } from "@/shared/interfaces/entities/user.interface";
+
 
 export interface IProfileOutputPort {
   getUserByUsername(username: string): Promise<IUserGeneric | null>;

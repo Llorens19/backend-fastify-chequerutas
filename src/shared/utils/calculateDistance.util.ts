@@ -1,4 +1,5 @@
-import { ICoordenate } from "../interfaces/utils/coordinat.interface";
+import { ICoordenate } from "@/shared/interfaces/utils/coordinat.interface";
+
 
 export const calculateDistance = (coordinates: ICoordenate[]): number => {
   const radEarth = 6371000

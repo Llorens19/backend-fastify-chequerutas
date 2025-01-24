@@ -1,14 +1,15 @@
-//Interfaces
-import { IResp } from "../../../../shared/interfaces/respUtils.interface";
-import { ICategories } from "../../domain/interfaces/category.interface";
+//interfaces
+import { ICategories } from "@/modules/category/domain/interfaces/category.interface";
+import { ICategoryOutputPort } from "@/modules/category/infrastructure/ports/category.port";
+import { IResp } from "@/shared/interfaces/respUtils.interface";
+import { IUseCaseData } from "@/shared/interfaces/useCaseGenericInpur.interface";
 
-//Utils
-import { resp } from "../../../../shared/utils/resp.util";
+//errors
+import { ErrorsCategory } from "@/modules/category/domain/errors/category.errors";
 
-//Error
-import { ErrorsCategory } from "../../domain/errors/category.errors";
-import { ICategoryOutputPort } from "../../infrastructure/ports/category.port";
-import { IUseCaseData } from "../../../../shared/interfaces/useCaseGenericInpur.interface";
+//utils
+import { resp } from "@/shared/utils/resp.util";
+
 
 export const getCategoriesUseCase = async ({ repo }: IUseCaseData<ICategoryOutputPort>): Promise<IResp<ICategories>> => {
 

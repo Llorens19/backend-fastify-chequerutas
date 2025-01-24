@@ -32,6 +32,7 @@
     "@types/node": "^22.10.7",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typeorm-naming-strategies": "^4.1.0",
     "typescript": "^5.7.3"
   }

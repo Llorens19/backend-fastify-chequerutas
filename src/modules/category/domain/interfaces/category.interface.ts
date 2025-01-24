@@ -1,6 +1,4 @@
-import { Categories } from "../../../../shared/entities/Categories";
-
-export interface ICategory extends Categories {}
+import { ICategory } from "@/shared/interfaces/entities/category.interface";
 
 export interface ICategories {
   categories: ICategory[];

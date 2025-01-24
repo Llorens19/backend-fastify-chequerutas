@@ -1,4 +1,4 @@
-import { ErrorResp } from "../../../../shared/utils/error.util"
+import { ErrorResp } from "@/shared/utils/error.util";
 
 export const ErrorsAuth = {
   InvalidPassword: new ErrorResp(401, 'InvalidPassword', 'Invalid password'),

@@ -1,16 +1,20 @@
-// Interfaces
+//interfaces
 import { FastifyInstance } from "fastify";
 
-// Use Cases
-import { registerUseCase } from "../application/use-cases/register.use-case";
-import { loginUseCase } from "../application/use-cases/login.use-case";
+//Adapters
+import { AuthRepoAdapter } from "@/modules/auth/infrastructure/adapters/auth.adapter";
+import { genericController } from "@/presentation/adapters/genericController.adapter";
 
-// Controller
-import { genericController } from "../../../presentation/adapters/genericController.adapter";
-import { AuthRepoAdapter } from "../infrastructure/adapters/auth.adapter";
-import verifyJWT from "../../../shared/middlewares/verifyJWT.middleware";
-import { getCurrentUserUseCase } from "../application/use-cases/getCurrentUser.use-case";
-import { getNewAccessToken } from "../application/use-cases/getNewAccessToken.use-case";
+//Use Cases
+import { getCurrentUserUseCase } from "@/modules/auth/application/use-cases/getCurrentUser.use-case";
+import { getNewAccessToken } from "@/modules/auth/application/use-cases/getNewAccessToken.use-case";
+import { loginUseCase } from "@/modules/auth/application/use-cases/login.use-case";
+import { registerUseCase } from "@/modules/auth/application/use-cases/register.use-case";
+
+
+//middlewares
+import verifyJWT from "@/shared/middlewares/verifyJWT.middleware";
+
 
 const authRepo = new AuthRepoAdapter();
 

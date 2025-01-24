@@ -1,9 +1,10 @@
-import { IUserGeneric } from '../../../../shared/interfaces/entities/user.interface';
-import { IAdminFields } from '../../../../shared/interfaces/entities/admin.interface';
-import { IClientFields } from '../../../../shared/interfaces/entities/client.interface';
-import { IRegister } from '../../domain/interfaces/register.interface';
-import { IRefreshToken } from '../../../../shared/interfaces/entities/refresToken.interface';
-import { IBlackList } from '../../../../shared/interfaces/entities/blackList.interface';
+import { IRegister } from "@/modules/auth/domain/interfaces/register.interface";
+import { IAdminFields } from "@/shared/interfaces/entities/admin.interface";
+import { IBlackList } from "@/shared/interfaces/entities/blackList.interface";
+import { IClientFields } from "@/shared/interfaces/entities/client.interface";
+import { IRefreshToken } from "@/shared/interfaces/entities/refresToken.interface";
+import { IUserGeneric } from "@/shared/interfaces/entities/user.interface";
+
 
 export interface IAuthOutputPort {
   getUserByEmailRepo(email: string): Promise<IUserGeneric | null>;

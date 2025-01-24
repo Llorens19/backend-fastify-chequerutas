@@ -1,10 +1,12 @@
-//Conexion
-import { AppDataSource } from '../../../../config/typeorm.config';
-import { Categories } from '../../../../shared/entities/Categories';
+//tyeorm
+import { AppDataSource } from "@/config/typeorm.config";
 
-//Interfaces
-import { ICategory } from '../../domain/interfaces/category.interface';
-import { ICategoryOutputPort } from '../ports/category.port';
+//repositories
+import { Categories } from "@/shared/entities/Categories";
+
+//interfaces
+import { ICategoryOutputPort } from "@/modules/category/infrastructure/ports/category.port";
+import { ICategory } from "@/shared/interfaces/entities/category.interface";
 
 
 const connection = AppDataSource.getRepository<ICategory>(Categories);

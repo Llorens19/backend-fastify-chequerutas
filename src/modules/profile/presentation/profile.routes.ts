@@ -1,17 +1,18 @@
 //Interfaces
 import { FastifyInstance } from "fastify";
 
-//Controller
-import { genericController } from "../../../presentation/adapters/genericController.adapter";
-
+//Adapters
+import { ProfileRepoAdapter } from "@/modules/profile/infrastructure/adapters/profile.adapter";
+import { genericController } from "@/presentation/adapters/genericController.adapter";
 
 //Use Cases
-import { getProfileUseCase } from "../application/use-cases/getProfile.use-case";
+import { editProfileUseCase } from "@/modules/profile/application/use-cases/editProfile.use-case";
+import { getProfileUseCase } from "@/modules/profile/application/use-cases/getProfile.use-case";
 
-//adapters
-import { ProfileRepoAdapter } from "../infrastructure/adapters/profile.adapter";
-import { editProfileUseCase } from "../application/use-cases/editProfile.use-case";
-import verifyJWT from "../../../shared/middlewares/verifyJWT.middleware";
+//Middlewares
+import verifyJWT from "@/shared/middlewares/verifyJWT.middleware";
+
+
 
 const profilePort = new ProfileRepoAdapter();
 
