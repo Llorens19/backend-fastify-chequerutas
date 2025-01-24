@@ -58,8 +58,9 @@ export class Routes {
   })
   averageRating: number | null;
 
-  @Column("text", { name: "start_coordinates", nullable: true })
-  startCoordinates: string | null;
+  // Cambiado a jsonb
+  @Column("jsonb", { name: "start_coordinates", nullable: true })
+  startCoordinates: object | null;
 
   @Column("uuid", { name: "id_category", nullable: true })
   idCategory: string | null;
@@ -93,7 +94,6 @@ export class Routes {
   })
   updatedAt: Date | null;
 
-  // Nuevos campos
   @Column("double precision", {
     name: "positive_gradient",
     nullable: true,
@@ -111,6 +111,10 @@ export class Routes {
     nullable: true,
   })
   cumulativeGradient: number | null;
+
+  // Nuevo campo "location"
+  @Column("text", { name: "location", nullable: true })
+  location: string | null;
 
   @OneToMany(() => Comments, (comments) => comments.idRoute2)
   comments: Comments[];

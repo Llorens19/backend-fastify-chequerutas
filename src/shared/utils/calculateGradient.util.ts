@@ -1,6 +1,7 @@
+import { ICalculateGradientOutput } from "@/shared/interfaces/utils/calculateGradient.interface";
 import { ICoordenate } from "@/shared/interfaces/utils/coordinat.interface";
 
-export const calculateGradient = (coordinates: ICoordenate[]) => {
+export const calculateGradient = (coordinates: ICoordenate[]):ICalculateGradientOutput=> {
   for (const coordinate of coordinates) {
     if (coordinate.length < 3 || coordinate[2] === undefined || coordinate[2] === null) {
       return {

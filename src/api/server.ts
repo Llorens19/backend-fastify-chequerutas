@@ -10,6 +10,7 @@ import { AppDataSource } from "../config/typeorm.config";
 import categoryRoutes from '@/modules/category/presentation/category.routes';
 import authRoutes from '@/modules/auth/presentation/auth.routes';
 import profileRoutes from '@/modules/profile/presentation/profile.routes';
+import routeRoutes from '@/modules/route/presentation/route.routes';
 
 
 
@@ -41,6 +42,7 @@ const start = async () => {
     app.register(categoryRoutes);
     app.register(authRoutes);
     app.register(profileRoutes);
+    app.register(routeRoutes);
 
     await app.listen({
       port: Number(process.env.PORT) || 4001,
