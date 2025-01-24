@@ -93,6 +93,25 @@ export class Routes {
   })
   updatedAt: Date | null;
 
+  // Nuevos campos
+  @Column("double precision", {
+    name: "positive_gradient",
+    nullable: true,
+  })
+  positiveGradient: number | null;
+
+  @Column("double precision", {
+    name: "negative_gradient",
+    nullable: true,
+  })
+  negativeGradient: number | null;
+
+  @Column("double precision", {
+    name: "cumulative_gradient",
+    nullable: true,
+  })
+  cumulativeGradient: number | null;
+
   @OneToMany(() => Comments, (comments) => comments.idRoute2)
   comments: Comments[];
 
