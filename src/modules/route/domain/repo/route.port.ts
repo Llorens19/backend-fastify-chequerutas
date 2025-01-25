@@ -9,4 +9,5 @@ export interface IRouteOutputPort {
   getRouteById(idRoute: string): Promise<IRoute | null>;
   getAllRoutes(query:any): Promise<IGetAllRoutesOutput>;
   editRoute(route: IEditRouteInput): Promise<IRoute>;
+  deleteRoute(idRoute: string): Promise<IRoute | null>;
 }

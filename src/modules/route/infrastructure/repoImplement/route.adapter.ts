@@ -56,12 +56,33 @@ export class RouteRepoAdapter implements IRouteOutputPort {
 
     const [routes, total] = resp;
 
-    return {routes , count: total};
+    return { routes, count: total };
   }
 
   editRoute = async (route: IEditRouteInput): Promise<IRoute> => {
     console.log(route);
     return await connectionRoute.save(route);
+  }
+
+  deleteRoute = async (idRoute: string): Promise<IRoute | null> => {
+    const route = await connectionRoute.findOne({
+      relations: [
+        "comments",
+        "favorites",
+        "imagesRoutes",
+        "category",
+        "user",
+        "usersRatings"
+      ],
+      where: {
+        idRoute,
+      }
+    });
+    if (!route) {
+      return null;
+    }
+    await connectionRoute.delete(idRoute);
+    return route;
   }
 
 
