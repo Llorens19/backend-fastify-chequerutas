@@ -129,11 +129,11 @@ export class Routes {
     onDelete: "SET NULL",
   })
   @JoinColumn([{ name: "id_category", referencedColumnName: "idCategory" }])
-  idCategory2: Categories;
+  category: Categories;
 
   @ManyToOne(() => Users, (users) => users.routes, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "id_user", referencedColumnName: "idUser" }])
-  idUser2: Users;
+  user: Users;
 
   @OneToMany(() => UsersRatings, (usersRatings) => usersRatings.idRoute2)
   usersRatings: UsersRatings[];

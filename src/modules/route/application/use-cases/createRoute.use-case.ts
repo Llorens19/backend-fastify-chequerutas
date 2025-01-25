@@ -1,8 +1,9 @@
 
+import { routeDTO } from "@/modules/route/application/dto/route.dto";
 import { ErrorsRoute } from "@/modules/route/domain/errors/route.errors";
 import { ICreateRouteFieldsRepo, ICreateRouteInput } from "@/modules/route/domain/interfaces/createRoute.interface";
+import { IRouteResp } from "@/modules/route/domain/interfaces/route.interface";
 import { IRouteOutputPort } from "@/modules/route/infrastructure/ports/route.port";
-import { userDTO } from "@/shared/dto/user.dto";
 import { Errors } from "@/shared/errors/errors.error";
 import { IRoute } from "@/shared/interfaces/entities/route.interface";
 import { IResp } from "@/shared/interfaces/respUtils.interface";
@@ -13,7 +14,7 @@ import { generateSlug } from "@/shared/utils/generateSlug.util";
 import { resp } from "@/shared/utils/resp.util";
 
 
-export const createRouteUseCase = async ({ repo, request }: IUseCaseData<IRouteOutputPort>): Promise<IResp<IRoute>> => {
+export const createRouteUseCase = async ({ repo, request }: IUseCaseData<IRouteOutputPort>): Promise<IResp<IRouteResp>> => {
   const { idUser } = request.middlewareData!;
   const { title, description, coordinates, level, duration, idCategory, isPublic, location} = request.body as ICreateRouteInput;
   if(!title || !description || !coordinates || !level || !duration || !idCategory || !isPublic || !location) throw Errors.MissingFields;
@@ -45,15 +46,9 @@ export const createRouteUseCase = async ({ repo, request }: IUseCaseData<IRouteO
 
   if(!newRoute) throw ErrorsRoute.ErrorCreatingRoute;
 
-  console.log(newRoute);
+  const route = await repo.getRouteById(newRoute.idRoute);
 
-  const category = await repo.getCategoryById(idCategory);
+  if(!route) throw ErrorsRoute.ErrorCreatingRoute;
 
-  if(!category) throw ErrorsRoute.ErrorCreatingRoute;
-
-  const user = await repo.getUserById(idUser);
-
-  if(!user) throw ErrorsRoute.ErrorCreatingRoute;
-
-  return resp(200, { ...newRoute, category, user: userDTO(user) });
+  return resp(200, routeDTO(route) );
 };
