@@ -58,8 +58,9 @@ export class Routes {
   })
   averageRating: number | null;
 
-  @Column("text", { name: "start_coordinates", nullable: true })
-  startCoordinates: string | null;
+  // Cambiado a jsonb
+  @Column("jsonb", { name: "start_coordinates", nullable: true })
+  startCoordinates: object | null;
 
   @Column("uuid", { name: "id_category", nullable: true })
   idCategory: string | null;
@@ -93,6 +94,28 @@ export class Routes {
   })
   updatedAt: Date | null;
 
+  @Column("double precision", {
+    name: "positive_gradient",
+    nullable: true,
+  })
+  positiveGradient: number | null;
+
+  @Column("double precision", {
+    name: "negative_gradient",
+    nullable: true,
+  })
+  negativeGradient: number | null;
+
+  @Column("double precision", {
+    name: "cumulative_gradient",
+    nullable: true,
+  })
+  cumulativeGradient: number | null;
+
+  // Nuevo campo "location"
+  @Column("text", { name: "location", nullable: true })
+  location: string | null;
+
   @OneToMany(() => Comments, (comments) => comments.idRoute2)
   comments: Comments[];
 
@@ -106,11 +129,11 @@ export class Routes {
     onDelete: "SET NULL",
   })
   @JoinColumn([{ name: "id_category", referencedColumnName: "idCategory" }])
-  idCategory2: Categories;
+  category: Categories;
 
   @ManyToOne(() => Users, (users) => users.routes, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "id_user", referencedColumnName: "idUser" }])
-  idUser2: Users;
+  user: Users;
 
   @OneToMany(() => UsersRatings, (usersRatings) => usersRatings.idRoute2)
   usersRatings: UsersRatings[];

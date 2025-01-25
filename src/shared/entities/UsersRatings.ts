@@ -57,5 +57,5 @@ export class UsersRatings {
     onDelete: "CASCADE",
   })
   @JoinColumn([{ name: "id_user", referencedColumnName: "idUser" }])
-  idUser2: Users;
+  user: Users;
 }

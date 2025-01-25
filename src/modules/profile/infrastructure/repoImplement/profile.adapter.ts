@@ -1,15 +1,17 @@
-//Conexion
-import { AppDataSource } from '../../../../config/typeorm.config';
-import { Users } from '../../../../shared/entities/Users';
-import { IAdminFields } from '../../../../shared/interfaces/entities/admin.interface';
-import { IUserGeneric } from '../../../../shared/interfaces/entities/user.interface';
+//tyepeorm
+import { AppDataSource } from "@/config/typeorm.config";
 
-//Interfaces
-import { IProfileOutputPort } from '../ports/profile.port';
-import { Admins } from '../../../../shared/entities/Admins';
-import { IClientFields } from '../../../../shared/interfaces/entities/client.interface';
-import { Clients } from '../../../../shared/entities/Clients';
-import { IEditProfileInput } from '../../domain/interfaces/editProfile.intput';
+//repositories
+import { Admins } from "@/shared/entities/Admins";
+import { Clients } from "@/shared/entities/Clients";
+import { Users } from "@/shared/entities/Users";
+
+//interfaces
+import { IEditProfileInput } from "@/modules/profile/domain/interfaces/editProfile.intput";
+import { IProfileOutputPort } from "@/modules/profile/domain/repo/profile.port";
+import { IAdminFields } from "@/shared/interfaces/entities/admin.interface";
+import { IClientFields } from "@/shared/interfaces/entities/client.interface";
+import { IUserGeneric } from "@/shared/interfaces/entities/user.interface";
 
 
 const connection = AppDataSource.getRepository<IUserGeneric>(Users);

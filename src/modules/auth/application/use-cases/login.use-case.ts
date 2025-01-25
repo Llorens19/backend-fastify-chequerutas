@@ -1,19 +1,19 @@
-
 //Interfaces
-import { IResp } from "../../../../shared/interfaces/respUtils.interface";
-//Repositories
+import { ILoginInput, ILoginOutput } from "@/modules/auth/domain/interfaces/login.interface";
+import { IAuthOutputPort } from "@/modules/auth/domain/repo/auth.port";
+import { IResp } from "@/shared/interfaces/respUtils.interface";
+import { IUseCaseData } from "@/shared/interfaces/useCaseGenericInpur.interface";
 
 //Utils
+import { resp } from "@/shared/utils/resp.util";
 import bcrypt from "bcrypt";
-import { resp } from "../../../../shared/utils/resp.util";
-import { ILoginInput, ILoginOutput } from "../../domain/interfaces/login.interface";
 import jwt from 'jsonwebtoken';
 
-//Error
-import { userDTO } from "../../domain/dto/user.dto";
-import { ErrorsAuth } from "../../domain/errors/auth.errors";
-import { IAuthOutputPort } from "../../infrastructure/port/auth.port";
-import { IUseCaseData } from "../../../../shared/interfaces/useCaseGenericInpur.interface";
+//Errors
+import { ErrorsAuth } from "@/modules/auth/domain/errors/auth.errors";
+
+//DTO
+import { userDTO } from "@/modules/auth/application/dto/user.dto";
 
 
 export const loginUseCase = async ({request, repo}: IUseCaseData<IAuthOutputPort>): Promise<IResp<ILoginOutput>> => {

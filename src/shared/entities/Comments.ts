@@ -64,5 +64,5 @@ export class Comments {
 
   @ManyToOne(() => Users, (users) => users.comments, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "id_user", referencedColumnName: "idUser" }])
-  idUser2: Users;
+  user: Users;
 }

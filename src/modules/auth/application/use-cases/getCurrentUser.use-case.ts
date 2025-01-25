@@ -1,14 +1,21 @@
+//Interfaces
+import { IUserResp } from "@/modules/auth/domain/interfaces/userResp.interface";
+import { IAuthOutputPort } from "@/modules/auth/domain/repo/auth.port";
+import { IResp } from "@/shared/interfaces/respUtils.interface";
+import { IUseCaseData } from "@/shared/interfaces/useCaseGenericInpur.interface";
 
-import { IResp } from "../../../../shared/interfaces/respUtils.interface";
-import { IUseCaseData } from "../../../../shared/interfaces/useCaseGenericInpur.interface";
-import { resp } from "../../../../shared/utils/resp.util";
-import { userDTO } from "../../domain/dto/user.dto";
-import { ErrorsAuth } from "../../domain/errors/auth.errors";
-import { IUserResp } from "../../domain/interfaces/userResp.interface";
-import { IAuthOutputPort } from "../../infrastructure/port/auth.port";
+//Dto
+import { userDTO } from "@/modules/auth/application/dto/user.dto";
+
+//Errors
+import { ErrorsAuth } from "@/modules/auth/domain/errors/auth.errors";
+
+//Utils
+import { resp } from "@/shared/utils/resp.util";
+
 
 export const getCurrentUserUseCase =  async ({request, repo}: IUseCaseData<IAuthOutputPort>): Promise<IResp<IUserResp>> => {
-  const { email } = request.middlewareData as any; //! Crear interfaz para el middlewareData
+  const { email } = request.middlewareData!;
   const user = await repo.getUserByEmailRepo(email);
   if (!user) throw ErrorsAuth.UserNotFound;
   return resp(200, userDTO(user));

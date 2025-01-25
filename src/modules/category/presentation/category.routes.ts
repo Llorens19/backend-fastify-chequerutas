@@ -1,17 +1,18 @@
 //Interfaces
 import { FastifyInstance } from "fastify";
 
-//Controller
-import { genericController } from "../../../presentation/adapters/genericController.adapter";
+//Adapters
+import { CategoriesRepoAdapter } from "@/modules/category/infrastructure/repoImplement/category.adapter";
+import { genericController } from "@/presentation/adapters/genericController.adapter";
 
 //Use Cases
-import { getCategoriesUseCase } from "../application/use-cases/getCategories.use-case";
-import { CategoriesRepoAdapter } from "../infrastructure/adapters/category.adapter";
+import { getCategoriesUseCase } from "@/modules/category/application/use-cases/getCategories.use-case";
 
-const categoriesPort = new CategoriesRepoAdapter();
+
+const categoriesRepo= new CategoriesRepoAdapter();
 
 const categoryRoutes = (routes: FastifyInstance): void => {
-  routes.get("/categories", genericController(getCategoriesUseCase, categoriesPort));
+  routes.get("/categories", genericController(getCategoriesUseCase, categoriesRepo));
 };
 
 export default categoryRoutes;

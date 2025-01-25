@@ -100,10 +100,10 @@ export class Users {
   @OneToMany(() => Clients, (clients) => clients.idUser)
   clients: Clients[];
 
-  @OneToMany(() => Comments, (comments) => comments.idUser2)
+  @OneToMany(() => Comments, (comments) => comments.user)
   comments: Comments[];
 
-  @OneToMany(() => Favorites, (favorites) => favorites.idUser2)
+  @OneToMany(() => Favorites, (favorites) => favorites.user)
   favorites: Favorites[];
 
   @OneToMany(
@@ -115,9 +115,9 @@ export class Users {
   @OneToMany(() => RefreshTokens, (refreshTokens) => refreshTokens.idUser)
   refreshTokens: RefreshTokens[];
 
-  @OneToMany(() => Routes, (routes) => routes.idUser2)
+  @OneToMany(() => Routes, (routes) => routes.user)
   routes: Routes[];
 
-  @OneToMany(() => UsersRatings, (usersRatings) => usersRatings.idUser2)
+  @OneToMany(() => UsersRatings, (usersRatings) => usersRatings.user)
   usersRatings: UsersRatings[];
 }

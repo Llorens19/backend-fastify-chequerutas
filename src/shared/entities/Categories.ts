@@ -43,6 +43,6 @@ export class Categories {
   })
   updatedAt: Date | null;
 
-  @OneToMany(() => Routes, (routes) => routes.idCategory2)
+  @OneToMany(() => Routes, (routes) => routes.category)
   routes: Routes[];
 }

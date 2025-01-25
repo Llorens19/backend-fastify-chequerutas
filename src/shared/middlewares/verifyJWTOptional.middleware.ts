@@ -1,8 +1,9 @@
+import { Errors } from '@/shared/errors/errors.error';
+import { IJwtToken } from '@/shared/interfaces/JWT/jwt.interface';
+import { IUseCaseGenericInput } from '@/shared/interfaces/useCaseGenericInpur.interface';
 import { FastifyReply } from 'fastify';
 import jwt from 'jsonwebtoken';
-import { IUseCaseGenericInput } from '../interfaces/useCaseGenericInpur.interface';
-import { IJwtToken } from '../interfaces/JWT/jwt.interface';
-import { Errors } from '../errors/errors.error';
+
 
 
 const verifyJWTOptional = async (request: IUseCaseGenericInput, reply: FastifyReply): Promise<void> => {

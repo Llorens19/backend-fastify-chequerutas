@@ -1,5 +1,5 @@
-import { Clients } from "../../entities/Clients";
-import { IUser } from "./user.interface";
+import { Clients } from "@/shared/entities/Clients";
+import { IUser } from "@/shared/interfaces/entities/user.interface";
 
 export interface IClientFields extends Clients{}
 

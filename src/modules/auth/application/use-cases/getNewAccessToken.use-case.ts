@@ -1,12 +1,21 @@
+//Interfaces
+import { ILoginOutput } from "@/modules/auth/domain/interfaces/login.interface";
+import { IAuthOutputPort } from "@/modules/auth/domain/repo/auth.port";
+import { IJwtToken } from "@/shared/interfaces/JWT/jwt.interface";
+import { IResp } from "@/shared/interfaces/respUtils.interface";
+import { IUseCaseData } from "@/shared/interfaces/useCaseGenericInpur.interface";
 
-import { Errors } from "../../../../shared/errors/errors.error";
-import { IResp } from "../../../../shared/interfaces/respUtils.interface";
-import { IUseCaseData } from "../../../../shared/interfaces/useCaseGenericInpur.interface";
+//Utils
 import jwt from 'jsonwebtoken';
-import { IAuthOutputPort } from "../../infrastructure/port/auth.port";
-import { IJwtToken } from "../../../../shared/interfaces/JWT/jwt.interface";
-import { resp } from "../../../../shared/utils/resp.util";
-import { ILoginOutput } from "../../domain/interfaces/login.interface";
+import { resp } from "@/shared/utils/resp.util";
+
+//Errors
+import { Errors } from "@/shared/errors/errors.error";
+
+//DTO
+import { userDTO } from "@/modules/auth/application/dto/user.dto";
+
+
 
 export const getNewAccessToken = async ({ request, repo }: IUseCaseData<IAuthOutputPort>): Promise<IResp<ILoginOutput>> => {
   const authHeader = request.headers.refresh_authorization;
@@ -49,7 +58,7 @@ export const getNewAccessToken = async ({ request, repo }: IUseCaseData<IAuthOut
 
       if (!userToken) throw Errors.Forbidden;
 
-      return resp(200, { ...userToken, accessToken: accessToken, refreshToken: refreshToken });
+      return resp(200, { ...userDTO(userToken), accessToken: accessToken, refreshToken: refreshToken });
 
 
   } catch (err) {

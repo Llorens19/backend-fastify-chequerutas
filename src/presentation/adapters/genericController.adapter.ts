@@ -1,6 +1,7 @@
+import { IUseCaseFunction } from "@/presentation/ports/genericInput.port";
+import { ErrorResp } from "@/shared/utils/error.util";
 import { FastifyReply, FastifyRequest } from "fastify";
-import { ErrorResp } from "../../shared/utils/error.util";
-import { IUseCaseFunction } from "../ports/genericInput.port";
+
 
 export const genericController = <T>(useCase: IUseCaseFunction<T>, repo:T) => {
 

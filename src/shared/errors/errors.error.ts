@@ -1,5 +1,4 @@
-import { ErrorResp } from "../utils/error.util";
-
+import { ErrorResp } from "@/shared/utils/error.util";
 
 export const Errors = {
   MissingFields: new ErrorResp(400, 'MissingFields', 'Missing fields'),

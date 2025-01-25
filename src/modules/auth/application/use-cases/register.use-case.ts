@@ -1,20 +1,21 @@
-
 //Interfaces
-import { IUserGeneric } from "../../../../shared/interfaces/entities/user.interface";
-import { IResp } from "../../../../shared/interfaces/respUtils.interface";
-import { IRegister } from "../../domain/interfaces/register.interface";
+import { IUserResp } from "@/modules/auth/domain/interfaces/userResp.interface";
+import { IAuthOutputPort } from "@/modules/auth/domain/repo/auth.port";
+import { IUserGeneric } from "@/shared/interfaces/entities/user.interface";
+import { IResp } from "@/shared/interfaces/respUtils.interface";
+import { IUseCaseData } from "@/shared/interfaces/useCaseGenericInpur.interface";
+import { IRegister } from "@/modules/auth/domain/interfaces/register.interface";
 
 //Utils
-import bcrypt from "bcrypt";
-import { resp } from "../../../../shared/utils/resp.util";
+import { resp } from "@/shared/utils/resp.util";
+import bcrypt from 'bcrypt';
 
-//Error
-import { ErrorsAuth } from "../../domain/errors/auth.errors";
-import { Errors } from "../../../../shared/errors/errors.error";
-import { userDTO } from "../../domain/dto/user.dto";
-import { IUserResp } from "../../domain/interfaces/userResp.interface";
-import { IAuthOutputPort } from "../../infrastructure/port/auth.port";
-import { IUseCaseData } from "../../../../shared/interfaces/useCaseGenericInpur.interface";
+//Errors
+import { ErrorsAuth } from "@/modules/auth/domain/errors/auth.errors";
+import { Errors } from "@/shared/errors/errors.error";
+
+//DTO
+import { userDTO } from "@/modules/auth/application/dto/user.dto";
 
 
 

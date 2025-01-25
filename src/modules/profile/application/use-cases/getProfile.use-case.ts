@@ -1,17 +1,18 @@
 //Interfaces
-import { IResp } from "../../../../shared/interfaces/respUtils.interface";
-import { IUseCaseData } from "../../../../shared/interfaces/useCaseGenericInpur.interface";
-import { IGetProfileInput } from "../../domain/interfaces/getProfile.interface";
-import { IProfileOutputPort } from "../../infrastructure/ports/profile.port";
-import { IProfileResp } from "../../domain/interfaces/profile.interface";
+import { IGetProfileInput } from "@/modules/profile/domain/interfaces/getProfile.interface";
+import { IProfileResp } from "@/modules/profile/domain/interfaces/profile.interface";
+import { IProfileOutputPort } from "@/modules/profile/domain/repo/profile.port";
+import { IResp } from "@/shared/interfaces/respUtils.interface";
+import { IUseCaseData } from "@/shared/interfaces/useCaseGenericInpur.interface";
 
 //Utils
-import { resp } from "../../../../shared/utils/resp.util";
+import { resp } from "@/shared/utils/resp.util";
 
 //Error
-import { ErrorsProfile } from "../../domain/errors/profile.errors";
-import { profileDTO } from "../../domain/dto/profile.dto";
+import { ErrorsProfile } from "@/modules/profile/domain/errors/profile.errors";
 
+//DTO
+import { profileDTO } from "@/modules/profile/application/dto/profile.dto";
 
 
 export const getProfileUseCase = async ({ repo, request }: IUseCaseData<IProfileOutputPort>): Promise<IResp<IProfileResp>> => {

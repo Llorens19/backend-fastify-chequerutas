@@ -1,6 +1,7 @@
-import { Users } from "../../entities/Users";
-import { IAdminFields } from "./admin.interface";
-import { IClientFields } from "./client.interface";
+import { Users } from "@/shared/entities/Users";
+import { IAdminFields } from "@/shared/interfaces/entities/admin.interface";
+import { IClientFields } from "@/shared/interfaces/entities/client.interface";
+
 
 export interface IUser extends Users{}
 

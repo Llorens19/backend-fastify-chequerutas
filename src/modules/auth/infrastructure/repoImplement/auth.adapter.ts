@@ -1,22 +1,25 @@
-//Conexion
-import { AppDataSource } from '../../../../config/typeorm.config';
-import { MoreThan } from 'typeorm';
+//typeORM
+import { AppDataSource } from "@/config/typeorm.config";
+import { MoreThan } from "typeorm";
+
+//Repositories
+import { Admins } from "@/shared/entities/Admins";
+import { BlacklistTokens } from "@/shared/entities/BlacklistTokens";
+import { Clients } from "@/shared/entities/Clients";
+import { RefreshTokens } from "@/shared/entities/RefreshTokens";
+import { Users } from "@/shared/entities/Users";
+
 
 //Interfaces
-import { IUser, IUserGeneric } from '../../../../shared/interfaces/entities/user.interface';
-import { IAdminFields } from '../../../../shared/interfaces/entities/admin.interface';
-import { IClientFields } from '../../../../shared/interfaces/entities/client.interface';
-import { IRegister } from '../../domain/interfaces/register.interface';
+import { IRegister } from "@/modules/auth/domain/interfaces/register.interface";
+import { IAuthOutputPort } from "@/modules/auth/domain/repo/auth.port";
+import { IAdminFields } from "@/shared/interfaces/entities/admin.interface";
+import { IBlackList } from "@/shared/interfaces/entities/blackList.interface";
+import { IClientFields } from "@/shared/interfaces/entities/client.interface";
+import { IRefreshToken } from "@/shared/interfaces/entities/refresToken.interface";
+import { IUser, IUserGeneric } from "@/shared/interfaces/entities/user.interface";
 
-//Entities
-import { Users } from '../../../../shared/entities/Users';
-import { Admins } from '../../../../shared/entities/Admins';
-import { Clients } from '../../../../shared/entities/Clients';
-import { IAuthOutputPort } from '../port/auth.port';
-import { IBlackList } from '../../../../shared/interfaces/entities/blackList.interface';
-import { BlacklistTokens } from '../../../../shared/entities/BlacklistTokens';
-import { IRefreshToken } from '../../../../shared/interfaces/entities/refresToken.interface';
-import { RefreshTokens } from '../../../../shared/entities/RefreshTokens';
+
 
 
 

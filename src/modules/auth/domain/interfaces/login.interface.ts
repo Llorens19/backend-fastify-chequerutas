@@ -1,4 +1,4 @@
-import { IUserResp } from "./userResp.interface";
+import { IUserResp } from "@/modules/auth/domain/interfaces/userResp.interface";
 
 export interface ILoginInput {
   email: string;
