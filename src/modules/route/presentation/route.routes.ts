@@ -4,7 +4,7 @@ import { FastifyInstance } from "fastify";
 //Controller
 import { genericController } from "../../../presentation/adapters/genericController.adapter";
 import { createRouteUseCase } from "@/modules/route/application/use-cases/createRoute.use-case";
-import { RouteRepoAdapter } from "@/modules/route/infrastructure/adapters/route.adapter";
+import { RouteRepoAdapter } from "@/modules/route/infrastructure/repoImplement/route.adapter";
 import verifyJWT from "@/shared/middlewares/verifyJWT.middleware";
 import { getAllRoutesUseCase } from "@/modules/route/application/use-cases/getAllRoutes.use-case";
 

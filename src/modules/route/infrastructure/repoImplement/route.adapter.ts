@@ -4,7 +4,7 @@ import { AppDataSource } from '../../../../config/typeorm.config';
 
 //Interfaces
 import { ICreateRouteFieldsRepo } from '../../domain/interfaces/createRoute.interface';
-import { IRouteOutputPort } from '../../domain/ports/route.port';
+import { IRouteOutputPort } from '../../domain/repo/route.port';
 import { Routes } from '@/shared/entities/Routes';
 import { IGetAllRoutesOutput } from '@/modules/route/domain/interfaces/getAllRoutes.interface';
 

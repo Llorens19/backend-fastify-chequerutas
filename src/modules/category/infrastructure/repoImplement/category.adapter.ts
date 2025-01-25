@@ -5,7 +5,7 @@ import { AppDataSource } from "@/config/typeorm.config";
 import { Categories } from "@/shared/entities/Categories";
 
 //interfaces
-import { ICategoryOutputPort } from "@/modules/category/domain/ports/category.port";
+import { ICategoryOutputPort } from "@/modules/category/domain/repo/category.port";
 import { ICategory } from "@/shared/interfaces/entities/category.interface";
 
 

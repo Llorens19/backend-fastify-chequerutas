@@ -2,7 +2,7 @@
 import { IResp } from "@/shared/interfaces/respUtils.interface";
 import { IUseCaseData } from "@/shared/interfaces/useCaseGenericInpur.interface";
 import { IProfileResp } from "@/modules/profile/domain/interfaces/profile.interface";
-import { IProfileOutputPort } from "@/modules/profile/domain/ports/profile.port";
+import { IProfileOutputPort } from "@/modules/profile/domain/repo/profile.port";
 import { IEditProfileInput } from "@/modules/profile/domain/interfaces/editProfile.intput";
 
 //Utils

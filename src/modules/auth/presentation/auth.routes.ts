@@ -2,7 +2,7 @@
 import { FastifyInstance } from "fastify";
 
 //Adapters
-import { AuthRepoAdapter } from "@/modules/auth/infrastructure/adapters/auth.adapter";
+import { AuthRepoAdapter } from "@/modules/auth/infrastructure/repoImplement/auth.adapter";
 import { genericController } from "@/presentation/adapters/genericController.adapter";
 
 //Use Cases

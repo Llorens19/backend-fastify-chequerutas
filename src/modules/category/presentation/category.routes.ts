@@ -2,7 +2,7 @@
 import { FastifyInstance } from "fastify";
 
 //Adapters
-import { CategoriesRepoAdapter } from "@/modules/category/infrastructure/adapters/category.adapter";
+import { CategoriesRepoAdapter } from "@/modules/category/infrastructure/repoImplement/category.adapter";
 import { genericController } from "@/presentation/adapters/genericController.adapter";
 
 //Use Cases

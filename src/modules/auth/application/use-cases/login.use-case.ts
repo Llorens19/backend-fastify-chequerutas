@@ -1,6 +1,6 @@
 //Interfaces
 import { ILoginInput, ILoginOutput } from "@/modules/auth/domain/interfaces/login.interface";
-import { IAuthOutputPort } from "@/modules/auth/domain/port/auth.port";
+import { IAuthOutputPort } from "@/modules/auth/domain/repo/auth.port";
 import { IResp } from "@/shared/interfaces/respUtils.interface";
 import { IUseCaseData } from "@/shared/interfaces/useCaseGenericInpur.interface";
 

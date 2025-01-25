@@ -2,7 +2,7 @@
 import { FastifyInstance } from "fastify";
 
 //Adapters
-import { ProfileRepoAdapter } from "@/modules/profile/infrastructure/adapters/profile.adapter";
+import { ProfileRepoAdapter } from "@/modules/profile/infrastructure/repoImplement/profile.adapter";
 import { genericController } from "@/presentation/adapters/genericController.adapter";
 
 //Use Cases

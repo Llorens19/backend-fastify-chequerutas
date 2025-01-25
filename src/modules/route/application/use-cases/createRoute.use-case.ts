@@ -3,7 +3,7 @@ import { routeDTO } from "@/modules/route/application/dto/route.dto";
 import { ErrorsRoute } from "@/modules/route/domain/errors/route.errors";
 import { ICreateRouteFieldsRepo, ICreateRouteInput } from "@/modules/route/domain/interfaces/createRoute.interface";
 import { IRouteResp } from "@/modules/route/domain/interfaces/route.interface";
-import { IRouteOutputPort } from "@/modules/route/domain/ports/route.port";
+import { IRouteOutputPort } from "@/modules/route/domain/repo/route.port";
 import { Errors } from "@/shared/errors/errors.error";
 import { IRoute } from "@/shared/interfaces/entities/route.interface";
 import { IResp } from "@/shared/interfaces/respUtils.interface";
