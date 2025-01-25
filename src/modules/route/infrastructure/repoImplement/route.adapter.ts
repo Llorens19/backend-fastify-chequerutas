@@ -7,6 +7,7 @@ import { ICreateRouteFieldsRepo } from '../../domain/interfaces/createRoute.inte
 import { IRouteOutputPort } from '../../domain/repo/route.port';
 import { Routes } from '@/shared/entities/Routes';
 import { IGetAllRoutesOutput } from '@/modules/route/domain/interfaces/getAllRoutes.interface';
+import { IEditRouteInput } from '@/modules/route/domain/interfaces/editRoute.interface';
 
 
 const connectionRoute = AppDataSource.getRepository<IRoute>(Routes);
@@ -57,4 +58,13 @@ export class RouteRepoAdapter implements IRouteOutputPort {
 
     return {routes , count: total};
   }
+
+  editRoute = async (route: IEditRouteInput): Promise<IRoute> => {
+    console.log(route);
+    return await connectionRoute.save(route);
+  }
+
+
+
+
 }
