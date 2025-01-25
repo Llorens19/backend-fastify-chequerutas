@@ -8,7 +8,7 @@ import { Users } from "@/shared/entities/Users";
 
 //interfaces
 import { IEditProfileInput } from "@/modules/profile/domain/interfaces/editProfile.intput";
-import { IProfileOutputPort } from "@/modules/profile/infrastructure/ports/profile.port";
+import { IProfileOutputPort } from "@/modules/profile/domain/ports/profile.port";
 import { IAdminFields } from "@/shared/interfaces/entities/admin.interface";
 import { IClientFields } from "@/shared/interfaces/entities/client.interface";
 import { IUserGeneric } from "@/shared/interfaces/entities/user.interface";

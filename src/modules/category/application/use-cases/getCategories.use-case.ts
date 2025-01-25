@@ -1,6 +1,6 @@
 //interfaces
 import { ICategories } from "@/modules/category/domain/interfaces/category.interface";
-import { ICategoryOutputPort } from "@/modules/category/infrastructure/ports/category.port";
+import { ICategoryOutputPort } from "@/modules/category/domain/ports/category.port";
 import { IResp } from "@/shared/interfaces/respUtils.interface";
 import { IUseCaseData } from "@/shared/interfaces/useCaseGenericInpur.interface";
 

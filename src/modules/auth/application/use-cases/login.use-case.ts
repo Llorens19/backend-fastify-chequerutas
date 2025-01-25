@@ -1,6 +1,6 @@
 //Interfaces
 import { ILoginInput, ILoginOutput } from "@/modules/auth/domain/interfaces/login.interface";
-import { IAuthOutputPort } from "@/modules/auth/infrastructure/port/auth.port";
+import { IAuthOutputPort } from "@/modules/auth/domain/port/auth.port";
 import { IResp } from "@/shared/interfaces/respUtils.interface";
 import { IUseCaseData } from "@/shared/interfaces/useCaseGenericInpur.interface";
 
@@ -13,7 +13,7 @@ import jwt from 'jsonwebtoken';
 import { ErrorsAuth } from "@/modules/auth/domain/errors/auth.errors";
 
 //DTO
-import { userDTO } from "@/modules/auth/domain/dto/user.dto";
+import { userDTO } from "@/modules/auth/application/dto/user.dto";
 
 
 export const loginUseCase = async ({request, repo}: IUseCaseData<IAuthOutputPort>): Promise<IResp<ILoginOutput>> => {

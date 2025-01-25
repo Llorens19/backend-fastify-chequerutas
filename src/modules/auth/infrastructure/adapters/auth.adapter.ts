@@ -12,7 +12,7 @@ import { Users } from "@/shared/entities/Users";
 
 //Interfaces
 import { IRegister } from "@/modules/auth/domain/interfaces/register.interface";
-import { IAuthOutputPort } from "@/modules/auth/infrastructure/port/auth.port";
+import { IAuthOutputPort } from "@/modules/auth/domain/port/auth.port";
 import { IAdminFields } from "@/shared/interfaces/entities/admin.interface";
 import { IBlackList } from "@/shared/interfaces/entities/blackList.interface";
 import { IClientFields } from "@/shared/interfaces/entities/client.interface";

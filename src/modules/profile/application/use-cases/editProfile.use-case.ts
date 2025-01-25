@@ -2,7 +2,7 @@
 import { IResp } from "@/shared/interfaces/respUtils.interface";
 import { IUseCaseData } from "@/shared/interfaces/useCaseGenericInpur.interface";
 import { IProfileResp } from "@/modules/profile/domain/interfaces/profile.interface";
-import { IProfileOutputPort } from "@/modules/profile/infrastructure/ports/profile.port";
+import { IProfileOutputPort } from "@/modules/profile/domain/ports/profile.port";
 import { IEditProfileInput } from "@/modules/profile/domain/interfaces/editProfile.intput";
 
 //Utils
@@ -12,7 +12,7 @@ import { resp } from "@/shared/utils/resp.util";
 import { ErrorsProfile } from "@/modules/profile/domain/errors/profile.errors";
 
 //DTO
-import { profileDTO } from "@/modules/profile/domain/dto/profile.dto";
+import { profileDTO } from "@/modules/profile/application/dto/profile.dto";
 
 
 export const editProfileUseCase = async ({ repo, request }: IUseCaseData<IProfileOutputPort>): Promise<IResp<IProfileResp>> => {

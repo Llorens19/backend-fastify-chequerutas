@@ -1,6 +1,6 @@
 //Interfaces
 import { IUserResp } from "@/modules/auth/domain/interfaces/userResp.interface";
-import { IAuthOutputPort } from "@/modules/auth/infrastructure/port/auth.port";
+import { IAuthOutputPort } from "@/modules/auth/domain/port/auth.port";
 import { IUserGeneric } from "@/shared/interfaces/entities/user.interface";
 import { IResp } from "@/shared/interfaces/respUtils.interface";
 import { IUseCaseData } from "@/shared/interfaces/useCaseGenericInpur.interface";
@@ -15,7 +15,7 @@ import { ErrorsAuth } from "@/modules/auth/domain/errors/auth.errors";
 import { Errors } from "@/shared/errors/errors.error";
 
 //DTO
-import { userDTO } from "@/modules/auth/domain/dto/user.dto";
+import { userDTO } from "@/modules/auth/application/dto/user.dto";
 
 
 
