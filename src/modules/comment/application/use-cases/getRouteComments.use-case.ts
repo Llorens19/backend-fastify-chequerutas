@@ -9,18 +9,20 @@ import { ErrorsComment } from "@/modules/comment/domain/errors/comment.errors";
 
 //utils
 import { resp } from "@/shared/utils/resp.util";
-
-//dto
-
-
+import { IGetRouteCommentsParams } from "@/modules/comment/domain/interfaces/getRouteComments.interface";
+import { Errors } from "@/shared/errors/errors.error";
 
 
-export const getUserCommentsUseCase = async ({ repo, request }: IUseCaseData<ICommentOutputPort>): Promise<IResp<ICommentsResponse>> => {
 
-  const { idUser } = request.middlewareData!;
+export const getRouteCommentsUseCase = async ({ repo, request }: IUseCaseData<ICommentOutputPort>): Promise<IResp<ICommentsResponse>> => {
+
   const { query } = request;
 
-  const comments = await repo.getUserComments(idUser, query);
+  const { id :idRoute } = request.params as IGetRouteCommentsParams;
+
+  if (!idRoute) throw Errors.MissingFields;
+
+  const comments = await repo.getRouteComments(idRoute, query);
 
   if (!comments) ErrorsComment.ErrorGettingComments;
 
