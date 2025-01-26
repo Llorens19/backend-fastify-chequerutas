@@ -11,6 +11,7 @@ import categoryRoutes from '@/modules/category/presentation/category.routes';
 import authRoutes from '@/modules/auth/presentation/auth.routes';
 import profileRoutes from '@/modules/profile/presentation/profile.routes';
 import routeRoutes from '@/modules/route/presentation/route.routes';
+import commentRoutes from '@/modules/comment/presentation/comment.routes';
 
 
 
@@ -43,6 +44,7 @@ const start = async () => {
     app.register(authRoutes);
     app.register(profileRoutes);
     app.register(routeRoutes);
+    app.register(commentRoutes);
 
     await app.listen({
       port: Number(process.env.PORT) || 4001,

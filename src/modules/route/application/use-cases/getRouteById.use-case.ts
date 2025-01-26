@@ -20,7 +20,7 @@ export const getRouteByIdUseCase = async ({ repo, request }: IUseCaseData<IRoute
 
   const route = await repo.getRouteById(id);
 
-  if (!route) ErrorsRoute.RouteNotFound;
+  if (!route) throw ErrorsRoute.RouteNotFound;
 
-  return resp(200, routeDTO(route!));
+  return resp(200, routeDTO(route));
 };
