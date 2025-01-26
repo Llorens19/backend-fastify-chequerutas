@@ -116,10 +116,10 @@ export class Routes {
   @Column("text", { name: "location", nullable: true })
   location: string | null;
 
-  @OneToMany(() => Comments, (comments) => comments.idRoute2)
+  @OneToMany(() => Comments, (comments) => comments.route)
   comments: Comments[];
 
-  @OneToMany(() => Favorites, (favorites) => favorites.idRoute2)
+  @OneToMany(() => Favorites, (favorites) => favorites.route)
   favorites: Favorites[];
 
   @OneToMany(() => ImagesRoutes, (imagesRoutes) => imagesRoutes.idRoute)
@@ -135,6 +135,6 @@ export class Routes {
   @JoinColumn([{ name: "id_user", referencedColumnName: "idUser" }])
   user: Users;
 
-  @OneToMany(() => UsersRatings, (usersRatings) => usersRatings.idRoute2)
+  @OneToMany(() => UsersRatings, (usersRatings) => usersRatings.route)
   usersRatings: UsersRatings[];
 }

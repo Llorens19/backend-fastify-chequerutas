@@ -60,7 +60,7 @@ export class Comments {
 
   @ManyToOne(() => Routes, (routes) => routes.comments, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "id_route", referencedColumnName: "idRoute" }])
-  idRoute2: Routes;
+  route: Routes;
 
   @ManyToOne(() => Users, (users) => users.comments, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "id_user", referencedColumnName: "idUser" }])
