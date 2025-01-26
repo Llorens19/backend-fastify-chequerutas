@@ -18,7 +18,7 @@ import { createCommentDTO } from "@/modules/comment/application/dto/createCommen
 
 
 
-export const createComment = async ({ repo, request }: IUseCaseData<ICommentOutputPort>): Promise<IResp<ICommentResponse>> => {
+export const createCommentUseCase = async ({ repo, request }: IUseCaseData<ICommentOutputPort>): Promise<IResp<ICommentResponse>> => {
 
   const commentData = request.body as ICreateCommentInput;
   const { idUser } = request.middlewareData!;
