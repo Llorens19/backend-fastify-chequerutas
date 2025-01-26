@@ -1,5 +1,6 @@
 //tyeorm
 import { AppDataSource } from "@/config/typeorm.config";
+import { IsNull } from "typeorm";
 
 //repositories
 import { Comments } from "@/shared/entities/Comments";
@@ -9,6 +10,7 @@ import { ICommentOutputPort } from "@/modules/comment/domain/repo/comment.port";
 import { IComment } from "@/shared/interfaces/entities/comment.interface";
 import { ICreateCommentInput } from "@/modules/comment/domain/interfaces/createComment.interface";
 import { ICommentResponse, ICommentsResponse } from "@/modules/comment/domain/interfaces/comment.interface";
+
 
 
 const connectionComment = AppDataSource.getRepository<IComment>(Comments);
@@ -24,6 +26,8 @@ export class CommentRepoAdapter implements ICommentOutputPort {
         "comments",
         "user",
         "route",
+        "comments.user",
+        "comments.route",
       ],
       where: {
         idComment,
@@ -57,9 +61,12 @@ export class CommentRepoAdapter implements ICommentOutputPort {
         "comments",
         "user",
         "route",
+        "comments.user",
+        "comments.route",
       ],
       where: {
         idRoute,
+        idParentComment: IsNull(),
       },
       take: query.limit,
       skip: query.offset,
