@@ -5,3 +5,8 @@ export interface ICommentResponse extends IComment{
   user: IUser;
   comments: IComment[];
 }
+
+export interface ICommentsResponse{
+  comments: ICommentResponse[];
+  count: number;
+}

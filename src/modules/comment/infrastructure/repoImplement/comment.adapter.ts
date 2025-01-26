@@ -8,7 +8,7 @@ import { Comments } from "@/shared/entities/Comments";
 import { ICommentOutputPort } from "@/modules/comment/domain/repo/comment.port";
 import { IComment } from "@/shared/interfaces/entities/comment.interface";
 import { ICreateCommentInput } from "@/modules/comment/domain/interfaces/createComment.interface";
-import { ICommentResponse } from "@/modules/comment/domain/interfaces/comment.interface";
+import { ICommentResponse, ICommentsResponse } from "@/modules/comment/domain/interfaces/comment.interface";
 
 
 const connectionComment = AppDataSource.getRepository<IComment>(Comments);
@@ -31,4 +31,23 @@ export class CommentRepoAdapter implements ICommentOutputPort {
     });
   }
 
+  getUserComments = async (idUser: string, query: any): Promise<ICommentsResponse> => {
+    const resp = await connectionComment.findAndCount({
+      relations: [
+        "comments",
+        "user",
+        "route",
+      ],
+      where: {
+        idUser,
+      },
+      take: query.limit,
+      skip: query.offset,
+    });
+
+  const[comments, count] = resp;
+
+  return { comments, count };
+
+}
 }
