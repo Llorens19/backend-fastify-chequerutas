@@ -10,9 +10,6 @@ import { ErrorsComment } from "@/modules/comment/domain/errors/comment.errors";
 //utils
 import { resp } from "@/shared/utils/resp.util";
 
-//dto
-
-
 
 
 export const getUserCommentsUseCase = async ({ repo, request }: IUseCaseData<ICommentOutputPort>): Promise<IResp<ICommentsResponse>> => {
@@ -22,7 +19,7 @@ export const getUserCommentsUseCase = async ({ repo, request }: IUseCaseData<ICo
 
   const comments = await repo.getUserComments(idUser, query);
 
-  if (!comments) ErrorsComment.ErrorGettingComments;
+  if (!comments) throw ErrorsComment.ErrorGettingComments;
 
   return resp(200, comments);
 };

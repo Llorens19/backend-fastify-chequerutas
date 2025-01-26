@@ -30,12 +30,12 @@ export const createCommentUseCase = async ({ repo, request }: IUseCaseData<IComm
   const commentDTO = createCommentDTO(commentData);
 
   const response = await repo.createComment({ ...commentDTO, idUser });
-  if (!response) ErrorsComment.ErrorCreatingComment;
+  if (!response) throw ErrorsComment.ErrorCreatingComment;
 
   const comment = await repo.getCommentById(response.idComment);
 
-  if (!comment) ErrorsComment.ErrorGettingComment;
+  if (!comment) throw ErrorsComment.ErrorGettingComment;
 
 
-  return resp(200, comment!);
+  return resp(200, comment);
 };

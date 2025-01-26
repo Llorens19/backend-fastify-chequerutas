@@ -76,4 +76,26 @@ export class CommentRepoAdapter implements ICommentOutputPort {
 
     return { comments, count };
   }
+
+  deleteComment = async (idComment: string): Promise<ICommentResponse | null> => {
+    const comment = await connectionComment.findOne({
+      relations: [
+        "comments",
+        "user",
+        "route",
+        "comments.user",
+        "comments.route",
+      ],
+      where: {
+        idComment,
+      }
+    });
+
+    if (!comment) return null;
+
+    await connectionComment.delete(idComment);
+
+    return comment;
+  };
+
 }

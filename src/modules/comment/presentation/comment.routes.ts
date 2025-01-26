@@ -15,6 +15,7 @@ import { getRouteCommentsUseCase } from "@/modules/comment/application/use-cases
 //middlewares
 import verifyJWT from "@/shared/middlewares/verifyJWT.middleware";
 import { getCommentByIdUseCase } from "@/modules/comment/application/use-cases/getCommentById.use-case";
+import { deleteCommentUseCase } from "@/modules/comment/application/use-cases/deleteComment.use-case";
 
 
 
@@ -25,6 +26,7 @@ const commentRoutes = (routes: FastifyInstance): void => {
   routes.get("/comments/user", { preHandler: verifyJWT }, genericController(getUserCommentsUseCase, commentRepo));
   routes.get("/comments/route/:id", genericController(getRouteCommentsUseCase, commentRepo));
   routes.get("/comments/:id", genericController(getCommentByIdUseCase, commentRepo));
+  routes.delete("/comments/:id", { preHandler: verifyJWT }, genericController(deleteCommentUseCase, commentRepo));
 };
 
 export default commentRoutes;
