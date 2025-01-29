@@ -49,7 +49,7 @@ export const getNewAccessToken = async ({ request, repo }: IUseCaseData<IAuthOut
           email
         }
       }, process.env.ACCESS_TOKEN_SECRET as string,
-        { expiresIn: process.env.ACCESS_TOKEN_EXPIRATION }
+        { expiresIn: process.env.ACCESS_TOKEN_EXPIRATION ?? '1h' }
       );
 
       if (!user) throw Errors.Forbidden;

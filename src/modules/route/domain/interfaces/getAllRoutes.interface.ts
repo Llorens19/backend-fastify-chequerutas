@@ -6,3 +6,14 @@ export interface IGetAllRoutesOutput{
   routes: IRouteResp[];
   count: number;
 }
+
+export interface IQueryParams {
+  title?: string;
+  level?: string;
+  distanceMax?: number;
+  distanceMin?: number;
+  category?: string;
+  location?: string;
+  limit?: number;
+  offset?: number;
+}

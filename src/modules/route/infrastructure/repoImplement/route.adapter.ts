@@ -6,8 +6,9 @@ import { AppDataSource } from '../../../../config/typeorm.config';
 import { ICreateRouteFieldsRepo } from '../../domain/interfaces/createRoute.interface';
 import { IRouteOutputPort } from '../../domain/repo/route.port';
 import { Routes } from '@/shared/entities/Routes';
-import { IGetAllRoutesOutput } from '@/modules/route/domain/interfaces/getAllRoutes.interface';
+import { IGetAllRoutesOutput, IQueryParams } from '@/modules/route/domain/interfaces/getAllRoutes.interface';
 import { IEditRouteInput } from '@/modules/route/domain/interfaces/editRoute.interface';
+import { Between, ILike, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 
 
 const connectionRoute = AppDataSource.getRepository<IRoute>(Routes);
@@ -35,29 +36,37 @@ export class RouteRepoAdapter implements IRouteOutputPort {
     return resp;
   }
 
+  getAllRoutes = async (query: IQueryParams): Promise<IGetAllRoutesOutput> => {
 
-  getAllRoutes = async (query: any): Promise<IGetAllRoutesOutput> => {
-    const { limit, offset } = query;
-    const resp = await connectionRoute.findAndCount({
-      relations: [
-        "comments",
-        "favorites",
-        "imagesRoutes",
-        "category",
-        "user",
-        "usersRatings"
-      ],
+    console.log(query);
+
+
+    const { limit = 10, offset = 0, title, level, distanceMax, distanceMin, category, location } = query;
+
+    console.log({ limit, offset, title, level, distanceMax, distanceMin, category, location });
+
+    const limitValue = Math.max(1, Number(limit));
+    const offsetValue = Math.max(0, Number(offset));
+
+    const [routes, total] = await connectionRoute.findAndCount({
+      relations: ["comments", "favorites", "imagesRoutes", "category", "user", "usersRatings"],
       where: {
         isPublic: true,
+        ...(title ? { title: ILike(`%${title}%`) } : {}),
+        ...(level && level !== '0' ? { level } : {}),
+        ...(category ? { category: { idCategory: category } } : {}),
+        ...(location ? { location: ILike(`%${location}%`) } : {}),
+        ...(distanceMax ? { distance: LessThanOrEqual(distanceMax) } : {}),
+        ...(distanceMin ? { distance: MoreThanOrEqual(distanceMin) } : {}),
+
       },
-      take: limit,
-      skip: offset,
+      take: limitValue,
+      skip: offsetValue,
     });
 
-    const [routes, total] = resp;
-
     return { routes, count: total };
-  }
+  };
+
 
   editRoute = async (route: IEditRouteInput): Promise<IRoute> => {
     console.log(route);
@@ -85,7 +94,15 @@ export class RouteRepoAdapter implements IRouteOutputPort {
     return route;
   }
 
-
+  getRouteLocations = async (): Promise<(string | null)[]> => {
+    const locations = await connectionRoute.find({
+      select: ["location"],
+      where: {
+        isPublic: true,
+      }
+    });
+    return locations.map(location => location.location);
+  }
 
 
 }
