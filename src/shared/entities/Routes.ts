@@ -108,10 +108,10 @@ export class Routes {
   @Column("jsonb", { name: "location", nullable: true })
   location: object | null;
 
-  @OneToMany(() => Comments, (comments) => comments.idRoute2)
+  @OneToMany(() => Comments, (comments) => comments.route)
   comments: Comments[];
 
-  @OneToMany(() => Favorites, (favorites) => favorites.idRoute2)
+  @OneToMany(() => Favorites, (favorites) => favorites.route)
   favorites: Favorites[];
 
   @OneToMany(() => ImagesRoutes, (imagesRoutes) => imagesRoutes.idRoute)
@@ -121,7 +121,7 @@ export class Routes {
     onDelete: "SET NULL",
   })
   @JoinColumn([{ name: "id_category", referencedColumnName: "idCategory" }])
-  idCategory2: Categories;
+  category: Categories;
 
   @ManyToOne(() => Locations, (locations) => locations.routes, {
     onDelete: "SET NULL",
@@ -131,8 +131,8 @@ export class Routes {
 
   @ManyToOne(() => Users, (users) => users.routes, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "id_user", referencedColumnName: "idUser" }])
-  idUser2: Users;
+  user: Users;
 
-  @OneToMany(() => UsersRatings, (usersRatings) => usersRatings.idRoute2)
+  @OneToMany(() => UsersRatings, (usersRatings) => usersRatings.route)
   usersRatings: UsersRatings[];
 }
