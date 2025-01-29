@@ -8,13 +8,14 @@ import { IRouteOutputPort } from '../../domain/repo/route.port';
 import { Routes } from '@/shared/entities/Routes';
 import { IGetAllRoutesOutput, IQueryParams } from '@/modules/route/domain/interfaces/getAllRoutes.interface';
 import { IEditRouteInput } from '@/modules/route/domain/interfaces/editRoute.interface';
-import { Between, ILike, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
+import {  ILike, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 
 
 const connectionRoute = AppDataSource.getRepository<IRoute>(Routes);
 
 
 export class RouteRepoAdapter implements IRouteOutputPort {
+
   createRoute = async (route: ICreateRouteFieldsRepo): Promise<IRoute> => {
     return await connectionRoute.save(route);
   }
@@ -49,11 +50,11 @@ export class RouteRepoAdapter implements IRouteOutputPort {
     const offsetValue = Math.max(0, Number(offset));
 
     const [routes, total] = await connectionRoute.findAndCount({
-      relations: ["comments", "favorites", "imagesRoutes", "category", "user", "usersRatings"],
+      relations: ["comments", "favorites", "imagesRoutes", "category", "user", "usersRatings", "location"],
       where: {
         isPublic: true,
         ...(title ? { title: ILike(`%${title}%`) } : {}),
-        ...(level && level !== '0' ? { level } : {}),
+        ...(level && level !== 0 ? { level } : {}),
         ...(category ? { category: { idCategory: category } } : {}),
         ...(location ? { location: ILike(`%${location}%`) } : {}),
         ...(distanceMax ? { distance: LessThanOrEqual(distanceMax) } : {}),
@@ -81,7 +82,8 @@ export class RouteRepoAdapter implements IRouteOutputPort {
         "imagesRoutes",
         "category",
         "user",
-        "usersRatings"
+        "usersRatings",
+        "location"
       ],
       where: {
         idRoute,
@@ -94,7 +96,7 @@ export class RouteRepoAdapter implements IRouteOutputPort {
     return route;
   }
 
-  getRouteLocations = async (): Promise<(string | null)[]> => {
+  getRouteLocations = async (): Promise<any> => {
     const locations = await connectionRoute.find({
       select: ["location"],
       where: {

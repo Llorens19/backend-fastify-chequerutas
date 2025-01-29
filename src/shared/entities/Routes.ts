@@ -41,7 +41,7 @@ export class Routes {
   coordinates: object;
 
   @Column("numeric", { name: "level", nullable: true, precision: 5, scale: 2 })
-  level: string | null;
+  level: number | null;
 
   @Column("double precision", {
     name: "distance",
@@ -97,16 +97,13 @@ export class Routes {
   updatedAt: Date | null;
 
   @Column("numeric", { name: "positive_gradient", nullable: true })
-  positiveGradient: string | null;
+  positiveGradient: number | null;
 
   @Column("numeric", { name: "negative_gradient", nullable: true })
-  negativeGradient: string | null;
+  negativeGradient: number | null;
 
   @Column("numeric", { name: "cumulative_gradient", nullable: true })
-  cumulativeGradient: string | null;
-
-  @Column("jsonb", { name: "location", nullable: true })
-  location: object | null;
+  cumulativeGradient: number | null;
 
   @OneToMany(() => Comments, (comments) => comments.route)
   comments: Comments[];
@@ -127,7 +124,10 @@ export class Routes {
     onDelete: "SET NULL",
   })
   @JoinColumn([{ name: "id_location", referencedColumnName: "idLocation" }])
-  idLocation: Locations;
+  location: Locations;
+
+  @Column("uuid", { name: "id_location", nullable: true })
+  idLocation: string | null;
 
   @ManyToOne(() => Users, (users) => users.routes, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "id_user", referencedColumnName: "idUser" }])

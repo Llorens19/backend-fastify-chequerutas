@@ -27,6 +27,6 @@ export class Locations {
   })
   createdAt: Date | null;
 
-  @OneToMany(() => Routes, (routes) => routes.idLocation)
+  @OneToMany(() => Routes, (routes) => routes.location)
   routes: Routes[];
 }

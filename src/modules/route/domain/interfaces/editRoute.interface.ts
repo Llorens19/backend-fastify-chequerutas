@@ -6,8 +6,8 @@ export interface IEditRouteInput {
   idRoute?: string;
   title?: string;
   description?: string;
-  level?: string;
+  level?: number;
   idCategory?: string;
   isPublic?: boolean;
-  location?: string;
+  idLocation?: string;
 }
