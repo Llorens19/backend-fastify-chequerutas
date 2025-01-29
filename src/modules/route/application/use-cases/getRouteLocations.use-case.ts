@@ -1,5 +1,4 @@
 //Interfaces
-import { IGetAllRoutesOutput, IQueryParams } from "@/modules/route/domain/interfaces/getAllRoutes.interface";
 import { IRouteOutputPort } from "@/modules/route/domain/repo/route.port";
 import { IResp } from "@/shared/interfaces/respUtils.interface";
 import { IUseCaseData } from "@/shared/interfaces/useCaseGenericInpur.interface";
@@ -9,13 +8,14 @@ import { ErrorsRoute } from "@/modules/route/domain/errors/route.errors";
 
 //Utils
 import { resp } from "@/shared/utils/resp.util";
+import { IGetRouteLocationOutput } from "@/modules/route/domain/interfaces/getRouteLocation.interface";
 
 
-export const getRouteLocationsUseCase = async ({ repo, request }: IUseCaseData<IRouteOutputPort>): Promise<IResp<(string | null)[]>> => {
+export const getRouteLocationsUseCase = async ({ repo }: IUseCaseData<IRouteOutputPort>): Promise<IResp<IGetRouteLocationOutput>> => {
 
-  const routes = await repo.getRouteLocations();
+  const locations = await repo.getRouteLocations();
 
-  if(!routes) throw ErrorsRoute.ErrorGettingRoutes;
+  if (!locations) throw ErrorsRoute.ErrorGettingLocations;
 
-  return resp(200, routes);
+  return resp(200, { locations });
 };

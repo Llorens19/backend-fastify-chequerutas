@@ -9,6 +9,7 @@ import { Routes } from '@/shared/entities/Routes';
 import { IGetAllRoutesOutput, IQueryParams } from '@/modules/route/domain/interfaces/getAllRoutes.interface';
 import { IEditRouteInput } from '@/modules/route/domain/interfaces/editRoute.interface';
 import {  ILike, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
+import { ILocation, ILocations } from '@/shared/interfaces/entities/location.interface';
 
 
 const connectionRoute = AppDataSource.getRepository<IRoute>(Routes);
@@ -28,7 +29,8 @@ export class RouteRepoAdapter implements IRouteOutputPort {
         "imagesRoutes",
         "category",
         "user",
-        "usersRatings"
+        "usersRatings",
+        "location"
       ],
       where: {
         idRoute,
@@ -96,14 +98,20 @@ export class RouteRepoAdapter implements IRouteOutputPort {
     return route;
   }
 
-  getRouteLocations = async (): Promise<any> => {
+  getRouteLocations = async (): Promise<ILocation[]> => {
     const locations = await connectionRoute.find({
       select: ["location"],
+      relations: ["location"],
       where: {
         isPublic: true,
       }
     });
-    return locations.map(location => location.location);
+
+    const locationsDistinct = Array.from(
+      new Map(locations.map(location => [location.location.idLocation, location.location])).values()
+    );
+
+    return locationsDistinct;
   }
 
 
