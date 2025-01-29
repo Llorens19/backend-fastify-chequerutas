@@ -16,6 +16,7 @@ import { RefreshTokens } from '@/shared/entities/RefreshTokens';
 import { Routes } from '@/shared/entities/Routes';
 import { Users } from '@/shared/entities/Users';
 import { UsersRatings } from '@/shared/entities/UsersRatings';
+import { Locations } from '@/shared/entities/Locations';
 
 
 
@@ -48,6 +49,7 @@ export const AppDataSource = new DataSource({
     RefreshTokens,
     Routes,
     Users,
-    UsersRatings
+    UsersRatings,
+    Locations,
   ],
 });

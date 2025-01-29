@@ -9,7 +9,7 @@ export interface IGetAllRoutesOutput{
 
 export interface IQueryParams {
   title?: string;
-  level?: string;
+  level?: number;
   distanceMax?: number;
   distanceMin?: number;
   category?: string;

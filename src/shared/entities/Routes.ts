@@ -10,6 +10,7 @@ import { Comments } from "./Comments";
 import { Favorites } from "./Favorites";
 import { ImagesRoutes } from "./ImagesRoutes";
 import { Categories } from "./Categories";
+import { Locations } from "./Locations";
 import { Users } from "./Users";
 import { UsersRatings } from "./UsersRatings";
 
@@ -39,12 +40,13 @@ export class Routes {
   @Column("jsonb", { name: "coordinates" })
   coordinates: object;
 
-  @Column("character varying", { name: "level", nullable: true, length: 50 })
-  level: string | null;
+  @Column("numeric", { name: "level", nullable: true, precision: 5, scale: 2 })
+  level: number | null;
 
   @Column("double precision", {
     name: "distance",
     nullable: true,
+    precision: 53,
   })
   distance: number | null;
 
@@ -54,11 +56,11 @@ export class Routes {
   @Column("double precision", {
     name: "average_rating",
     nullable: true,
+    precision: 53,
     default: () => "0",
   })
   averageRating: number | null;
 
-  // Cambiado a jsonb
   @Column("jsonb", { name: "start_coordinates", nullable: true })
   startCoordinates: object | null;
 
@@ -94,27 +96,14 @@ export class Routes {
   })
   updatedAt: Date | null;
 
-  @Column("double precision", {
-    name: "positive_gradient",
-    nullable: true,
-  })
+  @Column("numeric", { name: "positive_gradient", nullable: true })
   positiveGradient: number | null;
 
-  @Column("double precision", {
-    name: "negative_gradient",
-    nullable: true,
-  })
+  @Column("numeric", { name: "negative_gradient", nullable: true })
   negativeGradient: number | null;
 
-  @Column("double precision", {
-    name: "cumulative_gradient",
-    nullable: true,
-  })
+  @Column("numeric", { name: "cumulative_gradient", nullable: true })
   cumulativeGradient: number | null;
-
-  // Nuevo campo "location"
-  @Column("text", { name: "location", nullable: true })
-  location: string | null;
 
   @OneToMany(() => Comments, (comments) => comments.route)
   comments: Comments[];
@@ -130,6 +119,15 @@ export class Routes {
   })
   @JoinColumn([{ name: "id_category", referencedColumnName: "idCategory" }])
   category: Categories;
+
+  @ManyToOne(() => Locations, (locations) => locations.routes, {
+    onDelete: "SET NULL",
+  })
+  @JoinColumn([{ name: "id_location", referencedColumnName: "idLocation" }])
+  location: Locations;
+
+  @Column("uuid", { name: "id_location", nullable: true })
+  idLocation: string | null;
 
   @ManyToOne(() => Users, (users) => users.routes, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "id_user", referencedColumnName: "idUser" }])

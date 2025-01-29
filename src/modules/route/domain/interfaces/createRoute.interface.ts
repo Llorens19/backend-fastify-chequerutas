@@ -4,11 +4,11 @@ export interface ICreateRouteInput {
   title: string;
   description: string;
   coordinates: ICoordenate[];
-  level: string;
+  level: number;
   duration: number;
   idCategory: string;
   isPublic: boolean;
-  location: string;
+  idLocation: string;
 }
 
 export interface ICreateRouteFieldsRepo {
@@ -16,7 +16,7 @@ export interface ICreateRouteFieldsRepo {
   title: string;
   description: string;
   coordinates: ICoordenate[];
-  level: string;
+  level: number;
   distance: number;
   duration: number;
   avergeRating: number;
@@ -27,5 +27,5 @@ export interface ICreateRouteFieldsRepo {
   positiveGradient: number | null;
   negativeGradient: number | null;
   cumulativeGradient: number | null;
-  location: string;
+  idLocation: string;
 }

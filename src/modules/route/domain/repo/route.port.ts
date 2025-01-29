@@ -10,5 +10,5 @@ export interface IRouteOutputPort {
   getAllRoutes(query:IQueryParams): Promise<IGetAllRoutesOutput>;
   editRoute(route: IEditRouteInput): Promise<IRoute>;
   deleteRoute(idRoute: string): Promise<IRoute | null>;
-  getRouteLocations(): Promise<(string | null)[]>;
+  getRouteLocations(): Promise<any>;
 }
