@@ -18,6 +18,7 @@ import { getRouteTitlesUseCase } from "@/modules/route/application/use-cases/get
 
 //Middlewares
 import verifyJWT from "@/shared/middlewares/verifyJWT.middleware";
+import { getRoutePointsUseCase } from "@/modules/route/application/use-cases/getRutePoints.use-case";
 
 
 
@@ -26,13 +27,14 @@ const routeRepo = new RouteRepoAdapter();
 
 
 const routeRoutes = (routes: FastifyInstance): void => {
-  routes.post("/routes",  { preHandler: verifyJWT }, genericController(createRouteUseCase, routeRepo));
-  routes.get("/routes", genericController(getAllRoutesUseCase, routeRepo));
-  routes.get("/routes/:id", genericController(getRouteByIdUseCase, routeRepo));
-  routes.put("/routes/:id", { preHandler: verifyJWT }, genericController(editRouteUseCase, routeRepo));
-  routes.delete("/routes/:id", { preHandler: verifyJWT }, genericController(deleteRouteUseCase, routeRepo));
   routes.get("/routes/locations", genericController(getRouteLocationsUseCase, routeRepo));
   routes.get("/routes/titles", genericController(getRouteTitlesUseCase, routeRepo));
+  routes.get("/routes/points", genericController(getRoutePointsUseCase, routeRepo));
+  routes.get("/routes/:id", genericController(getRouteByIdUseCase, routeRepo));
+  routes.get("/routes", genericController(getAllRoutesUseCase, routeRepo));
+  routes.post("/routes",  { preHandler: verifyJWT }, genericController(createRouteUseCase, routeRepo));
+  routes.put("/routes/:id", { preHandler: verifyJWT }, genericController(editRouteUseCase, routeRepo));
+  routes.delete("/routes/:id", { preHandler: verifyJWT }, genericController(deleteRouteUseCase, routeRepo));
 };
 
 export default routeRoutes;

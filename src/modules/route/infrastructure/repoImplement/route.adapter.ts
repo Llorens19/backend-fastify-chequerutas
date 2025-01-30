@@ -10,6 +10,8 @@ import { IGetAllRoutesOutput, IQueryParams } from '@/modules/route/domain/interf
 import { IEditRouteInput } from '@/modules/route/domain/interfaces/editRoute.interface';
 import {  ILike, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 import { ILocation } from '@/shared/interfaces/entities/location.interface';
+import { IRotePointsResp } from '@/modules/route/domain/interfaces/getRoutePoints.use-case';
+import { ICoordenate } from '@/shared/interfaces/utils/coordinat.interface';
 
 
 const connectionRoute = AppDataSource.getRepository<IRoute>(Routes);
@@ -128,6 +130,31 @@ export class RouteRepoAdapter implements IRouteOutputPort {
 
     return titlesDistinct.map(route => route.title);
   }
+
+  getRoutePoints = async (query: IQueryParams): Promise<IRotePointsResp> => {
+    const { title, level, distanceMax, distanceMin, category, location } = query;
+
+    console.log({ title, level, distanceMax, distanceMin, category, location });
+
+    const [routes, total] = await connectionRoute.findAndCount({
+      select: ["startCoordinates", "idRoute"],
+      where: {
+        isPublic: true,
+        ...(title ? { title: ILike(`%${title}%`) } : {}),
+        ...(level && level != 0 ? { level } : {}),
+        ...(category ? { category: { idCategory: category } } : {}),
+        ...(location ? { idLocation: location } : {}),
+        ...(distanceMax ? { distance: LessThanOrEqual(distanceMax) } : {}),
+        ...(distanceMin ? { distance: MoreThanOrEqual(distanceMin) } : {}),
+      },
+    });
+
+    const points = routes as { idRoute: string; startCoordinates: ICoordenate }[];
+
+    console.log(points);
+
+    return { points, count: total };
+  };
 
 
 }
