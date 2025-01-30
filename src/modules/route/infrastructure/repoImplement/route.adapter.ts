@@ -9,7 +9,7 @@ import { Routes } from '@/shared/entities/Routes';
 import { IGetAllRoutesOutput, IQueryParams } from '@/modules/route/domain/interfaces/getAllRoutes.interface';
 import { IEditRouteInput } from '@/modules/route/domain/interfaces/editRoute.interface';
 import {  ILike, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
-import { ILocation, ILocations } from '@/shared/interfaces/entities/location.interface';
+import { ILocation } from '@/shared/interfaces/entities/location.interface';
 
 
 const connectionRoute = AppDataSource.getRepository<IRoute>(Routes);
@@ -56,9 +56,9 @@ export class RouteRepoAdapter implements IRouteOutputPort {
       where: {
         isPublic: true,
         ...(title ? { title: ILike(`%${title}%`) } : {}),
-        ...(level && level !== 0 ? { level } : {}),
+        ...(level && level != 0 ? { level } : {}),
         ...(category ? { category: { idCategory: category } } : {}),
-        ...(location ? { location: ILike(`%${location}%`) } : {}),
+        ...(location ? { idLocation: location } : {}),
         ...(distanceMax ? { distance: LessThanOrEqual(distanceMax) } : {}),
         ...(distanceMin ? { distance: MoreThanOrEqual(distanceMin) } : {}),
 
@@ -112,6 +112,21 @@ export class RouteRepoAdapter implements IRouteOutputPort {
     );
 
     return locationsDistinct;
+  }
+
+  getRouteTitles = async (): Promise<string[]> => {
+    const titles = await connectionRoute.find({
+      select: ["title"],
+      where: {
+        isPublic: true,
+      }
+    });
+
+    const titlesDistinct = Array.from(
+      new Map(titles.map(title => [title.title, title])).values()
+    );
+
+    return titlesDistinct.map(route => route.title);
   }
 
 

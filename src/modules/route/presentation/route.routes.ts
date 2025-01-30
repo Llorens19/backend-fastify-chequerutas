@@ -14,6 +14,7 @@ import { editRouteUseCase } from "@/modules/route/application/use-cases/editRout
 import { deleteRouteUseCase } from "@/modules/route/application/use-cases/deleteRoute.use-case";
 import { createRouteUseCase } from "@/modules/route/application/use-cases/createRoute.use-case";
 import { getRouteLocationsUseCase } from "@/modules/route/application/use-cases/getRouteLocations.use-case";
+import { getRouteTitlesUseCase } from "@/modules/route/application/use-cases/getRouteTitles.use-case";
 
 //Middlewares
 import verifyJWT from "@/shared/middlewares/verifyJWT.middleware";
@@ -31,6 +32,7 @@ const routeRoutes = (routes: FastifyInstance): void => {
   routes.put("/routes/:id", { preHandler: verifyJWT }, genericController(editRouteUseCase, routeRepo));
   routes.delete("/routes/:id", { preHandler: verifyJWT }, genericController(deleteRouteUseCase, routeRepo));
   routes.get("/routes/locations", genericController(getRouteLocationsUseCase, routeRepo));
+  routes.get("/routes/titles", genericController(getRouteTitlesUseCase, routeRepo));
 };
 
 export default routeRoutes;
