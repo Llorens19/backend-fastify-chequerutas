@@ -50,9 +50,6 @@ export class RouteRepoAdapter implements IRouteOutputPort {
 
     console.log({ limit, offset, title, level, distanceMax, distanceMin, category, location });
 
-    const limitValue = Math.max(1, Number(limit));
-    const offsetValue = Math.max(0, Number(offset));
-
     const [routes, total] = await connectionRoute.findAndCount({
       relations: ["comments", "favorites", "imagesRoutes", "category", "user", "usersRatings", "location"],
       where: {
@@ -65,8 +62,8 @@ export class RouteRepoAdapter implements IRouteOutputPort {
         ...(distanceMin ? { distance: MoreThanOrEqual(distanceMin) } : {}),
 
       },
-      take: limitValue,
-      skip: offsetValue,
+      take: limit,
+      skip: offset,
     });
 
     return { routes, count: total };

@@ -8,4 +8,7 @@ export interface IRegister {
   password: string;
   role: string;
   phone?: string;
+  client?: {
+    phone: string;
+  };
 }

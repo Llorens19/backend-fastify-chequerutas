@@ -10,7 +10,7 @@ export interface IAuthOutputPort {
   getUserByEmailRepo(email: string): Promise<IUserGeneric | null>;
   registerRepo(user: IRegister): Promise<IUserGeneric>;
   registerAdminRepo(user: IRegister): Promise<IAdminFields>;
-  registerClientRepo(user: IRegister): Promise<IClientFields>;
+  registerClientRepo(user: Omit<IClientFields, 'idClient'>): Promise<IClientFields>;
   addTokenToBlacklistRepo(token: string): Promise<void>;
   addRefreshTokenRepo(token: string, idUser: string, expiresAt: number): Promise<IRefreshToken>;
   searchRefreshToken(token: string): Promise<IRefreshToken | null>;

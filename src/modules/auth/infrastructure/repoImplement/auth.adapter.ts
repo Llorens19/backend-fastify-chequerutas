@@ -54,15 +54,18 @@ export class AuthRepoAdapter implements IAuthOutputPort {
   };
 
   registerRepo = async (user: IRegister): Promise<IUserGeneric> => {
-    return await connection.save(user);
+    const {client, ...rest} = user;
+    return await connection.save({ ...rest });
   };
 
   registerAdminRepo = async (user: IRegister): Promise<IAdminFields> => {
     return await connectionAdmin.save(user);
   };
 
-  registerClientRepo = async (user: IRegister): Promise<IClientFields> => {
-    return await connectionClient.save(user);
+  registerClientRepo = async (user: Omit<IClientFields, 'idClient'>): Promise<IClientFields> => {
+    const resp =  await connectionClient.save(user);
+    console.log("------------------------------",resp);
+    return resp;
   };
 
   addTokenToBlacklistRepo = async (token: string): Promise<void> => {
