@@ -63,10 +63,14 @@ export class CommentRepoAdapter implements ICommentOutputPort {
         "route",
         "comments.user",
         "comments.route",
+        "comments.idParentComment",
       ],
       where: {
         idRoute,
         idParentComment: IsNull(),
+      },
+      order: {
+        createdAt: "DESC",
       },
       take: query.limit,
       skip: query.offset,

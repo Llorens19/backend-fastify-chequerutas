@@ -8,14 +8,13 @@ import { ErrorsRoute } from "@/modules/route/domain/errors/route.errors";
 
 //Utils
 import { resp } from "@/shared/utils/resp.util";
-import { IGetRouteLocationOutput } from "@/modules/route/domain/interfaces/getRouteLocation.interface";
 
 
-export const getRouteLocationsUseCase = async ({ repo }: IUseCaseData<IRouteOutputPort>): Promise<IResp<IGetRouteLocationOutput>> => {
+export const getRouteTitlesUseCase = async ({ repo }: IUseCaseData<IRouteOutputPort>): Promise<IResp<string[]>> => {
 
-  const locations = await repo.getRouteLocations();
+  const titles = await repo.getRouteTitles();
 
-  if (!locations) throw ErrorsRoute.ErrorGettingLocations;
+  if (!titles) throw ErrorsRoute.ErrorGettingTitles;
 
-  return resp(200, { locations });
+  return resp(200, titles);
 };
