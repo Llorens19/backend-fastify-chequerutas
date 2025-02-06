@@ -37,7 +37,7 @@ export const loginUseCase = async ({request, repo}: IUseCaseData<IAuthOutputPort
       email
     }
   }, process.env.ACCESS_TOKEN_SECRET as string,
-    { expiresIn: process.env.ACCESS_TOKEN_EXPIRATION ?? '1h' }
+    { expiresIn: Number(process.env.ACCESS_TOKEN_EXPIRATION)}
   );
 
   const refreshToken = jwt.sign({
@@ -48,7 +48,7 @@ export const loginUseCase = async ({request, repo}: IUseCaseData<IAuthOutputPort
       email
     }
   }, process.env.REFRESH_TOKEN_SECRET as string,
-    { expiresIn: process.env.REFRESH_TOKEN_EXPIRATION }
+    { expiresIn: Number(process.env.REFRESH_TOKEN_EXPIRATION) }
   );
 
   const userResp = userDTO(user);
