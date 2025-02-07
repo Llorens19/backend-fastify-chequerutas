@@ -15,4 +15,5 @@ export interface IRouteOutputPort {
   getRouteLocations(): Promise<ILocation[]>;
   getRouteTitles(): Promise<string[]>;
   getRoutePoints(query: IQueryParams): Promise<IRotePointsResp>;
+  getRoutesUserPublic(username: string): Promise<IRoute[] | null>;
 }

@@ -153,5 +153,19 @@ export class RouteRepoAdapter implements IRouteOutputPort {
     return { points, count: total };
   };
 
+  getRoutesUserPublic = async (username: string): Promise<IRoute[]> => {
+    const routes = await connectionRoute.find({
+      relations: ["comments", "favorites", "imagesRoutes", "category", "user", "usersRatings", "location"],
+      where: {
+        isPublic: true,
+        user: {
+          username
+        }
+      }
+    });
+
+    return routes;
+  }
+
 
 }
