@@ -205,5 +205,22 @@ export class RouteRepoAdapter implements IRouteOutputPort {
 
   };
 
+  unFavoriteRoute = async (idRoute: string, idUser: string): Promise<IFavorite | null> => {
+    const favorite = await connectionFavorite.findOne({
+      where: {
+        idRoute,
+        idUser
+      }
+    });
+
+    if (!favorite) {
+      return null;
+    }
+
+    await connectionFavorite.delete(favorite.idFavorite);
+
+    return favorite;
+  };
+
 
 }

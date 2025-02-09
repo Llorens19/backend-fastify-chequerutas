@@ -11,4 +11,5 @@ export const ErrorsRoute = {
   ErrorGettingTitles: new ErrorResp(500, 'ErrorGettingTitles', 'Error getting titles'),
   ErrorGettingPoints: new ErrorResp(500, 'ErrorGettingPoints', 'Error getting points'),
   YouAlreadyLikedThisRoute: new ErrorResp(403, 'YouAlreadyLikedThisRoute', 'You already liked this route'),
+  YouAlreadyUnLikedThisRoute: new ErrorResp(403, 'YouAlreadyUnLikedThisRoute', 'You already unliked this route'),
 }

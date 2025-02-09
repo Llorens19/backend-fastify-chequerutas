@@ -20,4 +20,5 @@ export interface IRouteOutputPort {
   getRoutesUserPrivate(username: string): Promise<IRoute[] | null>;
   isFavorite(idRoute: string, idUser: string): Promise<boolean>;
   favoriteRoute(idRoute: string, idUser: string): Promise<IFavorite>;
+  unFavoriteRoute(idRoute: string, idUser: string): Promise<IFavorite | null>;
 }
