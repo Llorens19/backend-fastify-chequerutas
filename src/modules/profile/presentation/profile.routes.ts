@@ -8,9 +8,11 @@ import { genericController } from "@/presentation/adapters/genericController.ada
 //Use Cases
 import { editProfileUseCase } from "@/modules/profile/application/use-cases/editProfile.use-case";
 import { getProfileUseCase } from "@/modules/profile/application/use-cases/getProfile.use-case";
+import { followUseCase } from "@/modules/profile/application/use-cases/follow.use-case";
 
 //Middlewares
 import verifyJWT from "@/shared/middlewares/verifyJWT.middleware";
+
 
 
 
@@ -18,6 +20,7 @@ const profilePort = new ProfileRepoAdapter();
 
 const profileRoutes = (routes: FastifyInstance): void => {
   routes.get("/profile/:username", genericController(getProfileUseCase, profilePort));
+  routes.post("/profile/follow", { preHandler: verifyJWT }, genericController(followUseCase, profilePort));
   routes.put("/profile", { preHandler: verifyJWT }, genericController(editProfileUseCase, profilePort));
 };
 

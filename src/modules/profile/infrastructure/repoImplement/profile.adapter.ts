@@ -1,4 +1,4 @@
-//tyepeorm
+//typeorm
 import { AppDataSource } from "@/config/typeorm.config";
 
 //repositories
@@ -7,18 +7,18 @@ import { Clients } from "@/shared/entities/Clients";
 import { Users } from "@/shared/entities/Users";
 
 //interfaces
-import { IEditProfileInput } from "@/modules/profile/domain/interfaces/editProfile.intput";
+import { IEditProfileInput } from "@/modules/profile/domain/interfaces/editProfile.interface";
 import { IProfileOutputPort } from "@/modules/profile/domain/repo/profile.port";
 import { IAdminFields } from "@/shared/interfaces/entities/admin.interface";
 import { IClientFields } from "@/shared/interfaces/entities/client.interface";
 import { IUserGeneric } from "@/shared/interfaces/entities/user.interface";
-
+import { Followers } from "@/shared/entities/Followers";
+import { IFollower } from "@/shared/interfaces/entities/follower.interface";
 
 const connection = AppDataSource.getRepository<IUserGeneric>(Users);
 const connectionAdmin = AppDataSource.getRepository<IAdminFields>(Admins);
 const connectionClient = AppDataSource.getRepository<IClientFields>(Clients);
-
-
+const connectionFollowers = AppDataSource.getRepository<IFollower>(Followers);
 
 export class ProfileRepoAdapter implements IProfileOutputPort {
 
@@ -54,9 +54,30 @@ export class ProfileRepoAdapter implements IProfileOutputPort {
     await connectionAdmin.update({ idUser }, { ...user.admin });
   }
 
-  editClientProfile= async(idUser: string, user: IEditProfileInput): Promise<void> =>{
+  editClientProfile = async (idUser: string, user: IEditProfileInput): Promise<void> => {
     await connectionClient.update({ idUser }, { ...user.client });
   }
 
+  isFollowing = async (idUser: string, idFollowed: string): Promise<Boolean> => {
+    const isFollowing = await connectionFollowers.findOne(
+      {
+        where: {
+          idUser,
+          userFollowed: idFollowed
+        }
+      },
+    );
+    return isFollowing ? true : false;
+  };
+
+  followUser = async (idUser: string, idFollowed: string): Promise<IFollower> => {
+
+    const created = connectionFollowers.create({
+      idUser,
+      userFollowed: idFollowed
+    });
+
+    return await connectionFollowers.save(created);
+  };
 
 }

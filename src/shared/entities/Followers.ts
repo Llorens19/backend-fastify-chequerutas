@@ -1,11 +1,14 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { Users } from "./Users";
 
-@Index("followers_pkey", ["id"], { unique: true })
+@Index("followers_pkey", ["idUser", "userFollowed"], { unique: true }) // Asegura que no haya duplicados
 @Entity("followers", { schema: "public" })
 export class Followers {
-  @Column("uuid", { primary: true, name: "id" })
-  id: string;
+  @PrimaryColumn("uuid", { name: "id_user" })
+  idUser: string;
+
+  @PrimaryColumn("uuid", { name: "user_followed" })
+  userFollowed: string;
 
   @Column("timestamp without time zone", {
     name: "created_at",
@@ -16,9 +19,9 @@ export class Followers {
 
   @ManyToOne(() => Users, (users) => users.followings, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "id_user", referencedColumnName: "idUser" }])
-  idUser: Users;
+  user: Users;
 
   @ManyToOne(() => Users, (users) => users.followers, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "user_followed", referencedColumnName: "idUser" }])
-  userFollowed: Users;
+  followedUser: Users;
 }

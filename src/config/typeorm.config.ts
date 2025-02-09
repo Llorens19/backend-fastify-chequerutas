@@ -8,6 +8,7 @@ import { Categories } from '@/shared/entities/Categories';
 import { Clients } from '@/shared/entities/Clients';
 import { Comments } from '@/shared/entities/Comments';
 import { Favorites } from '@/shared/entities/Favorites';
+import { Followers } from '@/shared/entities/Followers';
 import { ImagesRoutes } from '@/shared/entities/ImagesRoutes';
 import { Notifications } from '@/shared/entities/Notifications';
 import { NotificationsUsers } from '@/shared/entities/NotificationsUsers';
@@ -42,6 +43,7 @@ export const AppDataSource = new DataSource({
     Clients,
     Comments,
     Favorites,
+    Followers,
     ImagesRoutes,
     Notifications,
     NotificationsUsers,
@@ -51,5 +53,6 @@ export const AppDataSource = new DataSource({
     Users,
     UsersRatings,
     Locations,
+
   ],
 });
