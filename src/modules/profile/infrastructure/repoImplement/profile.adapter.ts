@@ -27,8 +27,8 @@ export class ProfileRepoAdapter implements IProfileOutputPort {
       relations: [
         'followers',
         'followings',
-        'followings.user',
-        'followers.user'
+        'followings.followerUser',
+        'followers.followingUser'
       ],
       where: { username } });
 

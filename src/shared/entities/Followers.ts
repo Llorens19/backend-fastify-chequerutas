@@ -19,9 +19,9 @@ export class Followers {
 
   @ManyToOne(() => Users, (users) => users.followings, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "id_user", referencedColumnName: "idUser" }])
-  followingUser: Users; // Cambié el nombre para evitar conflictos
+  followingUser: Users;
 
   @ManyToOne(() => Users, (users) => users.followers, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "user_followed", referencedColumnName: "idUser" }])
-  user: Users; // También renombrado para más claridad
+  followerUser: Users;
 }

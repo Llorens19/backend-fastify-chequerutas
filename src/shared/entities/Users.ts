@@ -109,10 +109,10 @@ export class Users {
 
 
   @OneToMany(() => Followers, (followers) => followers.followingUser)
-  followings: Followers[]; // Usuarios que este usuario sigue
+  followings: Followers[];
 
-  @OneToMany(() => Followers, (followers) => followers.user)
-  followers: Followers[]; // Usuarios que siguen a este usuario
+  @OneToMany(() => Followers, (followers) => followers.followerUser)
+  followers: Followers[];
 
   @OneToMany(
     () => NotificationsUsers,
