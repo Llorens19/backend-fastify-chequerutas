@@ -8,6 +8,7 @@ import { NotificationsUsers } from "./NotificationsUsers";
 import { RefreshTokens } from "./RefreshTokens";
 import { Routes } from "./Routes";
 import { UsersRatings } from "./UsersRatings";
+import { Followers } from "@/shared/entities/Followers";
 
 @Index("users_email_key", ["email"], { unique: true })
 @Index("users_pkey", ["idUser"], { unique: true })
@@ -105,6 +106,13 @@ export class Users {
 
   @OneToMany(() => Favorites, (favorites) => favorites.user)
   favorites: Favorites[];
+
+
+  @OneToMany(() => Followers, (followers) => followers.idUser)
+  followings: Followers[];
+
+  @OneToMany(() => Followers, (followers) => followers.userFollowed)
+  followers: Followers[];
 
   @OneToMany(
     () => NotificationsUsers,
