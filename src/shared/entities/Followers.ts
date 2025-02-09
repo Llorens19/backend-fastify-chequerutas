@@ -1,7 +1,7 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { Users } from "./Users";
 
-@Index("followers_pkey", ["idUser", "userFollowed"], { unique: true }) // Asegura que no haya duplicados
+@Index("followers_pkey", ["idUser", "userFollowed"], { unique: true }) // Evita duplicados
 @Entity("followers", { schema: "public" })
 export class Followers {
   @PrimaryColumn("uuid", { name: "id_user" })
@@ -19,9 +19,9 @@ export class Followers {
 
   @ManyToOne(() => Users, (users) => users.followings, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "id_user", referencedColumnName: "idUser" }])
-  user: Users;
+  followingUser: Users; // Cambié el nombre para evitar conflictos
 
   @ManyToOne(() => Users, (users) => users.followers, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "user_followed", referencedColumnName: "idUser" }])
-  followedUser: Users;
+  user: Users; // También renombrado para más claridad
 }

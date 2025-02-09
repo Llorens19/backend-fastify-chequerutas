@@ -23,7 +23,14 @@ const connectionFollowers = AppDataSource.getRepository<IFollower>(Followers);
 export class ProfileRepoAdapter implements IProfileOutputPort {
 
   getUserByUsername = async (username: string): Promise<IUserGeneric | null> => {
-    const user = await connection.findOne({ where: { username } });
+    const user = await connection.findOne({
+      relations: [
+        'followers',
+        'followings',
+        'followings.user',
+        'followers.user'
+      ],
+      where: { username } });
 
     if (!user) return null;
 

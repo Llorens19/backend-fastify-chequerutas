@@ -108,11 +108,11 @@ export class Users {
   favorites: Favorites[];
 
 
-  @OneToMany(() => Followers, (followers) => followers.idUser)
-  followings: Followers[];
+  @OneToMany(() => Followers, (followers) => followers.followingUser)
+  followings: Followers[]; // Usuarios que este usuario sigue
 
-  @OneToMany(() => Followers, (followers) => followers.userFollowed)
-  followers: Followers[];
+  @OneToMany(() => Followers, (followers) => followers.user)
+  followers: Followers[]; // Usuarios que siguen a este usuario
 
   @OneToMany(
     () => NotificationsUsers,
