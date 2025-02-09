@@ -32,7 +32,14 @@ const connectionRefreshToken = AppDataSource.getRepository<IRefreshToken>(Refres
 export class AuthRepoAdapter implements IAuthOutputPort {
 
   getUserByEmailRepo = async (email: string): Promise<IUserGeneric | null> => {
-    const user = await connection.findOne({ where: { email } });
+    const user = await connection.findOne({
+      relations: [
+        'followers',
+        'followings',
+        'followings.followerUser',
+        'followers.followingUser'
+      ],
+      where: { email } });
 
     if (!user) return null;
 
@@ -67,9 +74,7 @@ export class AuthRepoAdapter implements IAuthOutputPort {
   };
 
   registerClientRepo = async (user: Omit<IClientFields, 'idClient'>): Promise<IClientFields> => {
-    const resp =  await connectionClient.save(user);
-    console.log("------------------------------",resp);
-    return resp;
+    return await connectionClient.save(user);
   };
 
   addTokenToBlacklistRepo = async (token: string): Promise<void> => {
