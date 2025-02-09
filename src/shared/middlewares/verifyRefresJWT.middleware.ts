@@ -14,7 +14,7 @@ const verifyRefreshJWT = async (request: IUseCaseGenericInput, reply: FastifyRep
   const token = authHeader.split(' ')[1];
 
   try {
-    const { user } = jwt.verify(token, process.env.JWT_SECRET as string) as IJwtToken;
+    const { user } = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET as string) as IJwtToken;
 
     request.middlewareData = {
       idUser: user.idUser,
@@ -22,6 +22,10 @@ const verifyRefreshJWT = async (request: IUseCaseGenericInput, reply: FastifyRep
       email: user.email,
       role: user.role,
     };
+
+    console.log(request.middlewareData);
+
+
   } catch (err) {
     throw Errors.Unautorized;
   }

@@ -53,6 +53,10 @@ export class AuthRepoAdapter implements IAuthOutputPort {
     return user;
   };
 
+  getUserByUsernameRepo = async (username: string): Promise<IUserGeneric | null> => {
+    return await connection.findOne({ where: { username } });
+  };
+
   registerRepo = async (user: IRegister): Promise<IUserGeneric> => {
     const {client, ...rest} = user;
     return await connection.save({ ...rest });

@@ -33,6 +33,10 @@ export const registerUseCase = async ({ request, repo }: IUseCaseData<IAuthOutpu
 
   if (user) throw ErrorsAuth.EmailAlreadyInUse;
 
+  const userUsername = await repo.getUserByUsernameRepo(username);
+
+  if (userUsername) throw ErrorsAuth.UsernameAlreadyInUse;
+
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const userRegisterData = { email, username, password: hashedPassword, name, surname, birthdate, role, client } as IRegister;

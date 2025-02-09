@@ -23,7 +23,7 @@ const commentRepo= new CommentRepoAdapter();
 
 const commentRoutes = (routes: FastifyInstance): void => {
   routes.post("/comments", { preHandler: verifyJWT }, genericController(createCommentUseCase, commentRepo));
-  routes.get("/comments/user", { preHandler: verifyJWT }, genericController(getUserCommentsUseCase, commentRepo));
+  routes.get("/comments/user/:username", genericController(getUserCommentsUseCase, commentRepo));
   routes.get("/comments/route/:id", genericController(getRouteCommentsUseCase, commentRepo));
   routes.get("/comments/:id", genericController(getCommentByIdUseCase, commentRepo));
   routes.delete("/comments/:id", { preHandler: verifyJWT }, genericController(deleteCommentUseCase, commentRepo));

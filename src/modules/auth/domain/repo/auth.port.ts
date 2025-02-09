@@ -8,6 +8,7 @@ import { IUserGeneric } from "@/shared/interfaces/entities/user.interface";
 
 export interface IAuthOutputPort {
   getUserByEmailRepo(email: string): Promise<IUserGeneric | null>;
+  getUserByUsernameRepo(username: string): Promise<IUserGeneric | null>;
   registerRepo(user: IRegister): Promise<IUserGeneric>;
   registerAdminRepo(user: IRegister): Promise<IAdminFields>;
   registerClientRepo(user: Omit<IClientFields, 'idClient'>): Promise<IClientFields>;

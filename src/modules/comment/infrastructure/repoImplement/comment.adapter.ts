@@ -35,15 +35,21 @@ export class CommentRepoAdapter implements ICommentOutputPort {
     });
   }
 
-  getUserComments = async (idUser: string, query: any): Promise<ICommentsResponse> => {
+  getUserComments = async (username: string, query: any): Promise<ICommentsResponse> => {
     const resp = await connectionComment.findAndCount({
       relations: [
         "comments",
         "user",
         "route",
+        "comments.user",
+        "comments.route",
+        "comments.idParentComment",
       ],
       where: {
-        idUser,
+        user: {
+          username,
+        },
+        idParentComment: IsNull(),
       },
       take: query.limit,
       skip: query.offset,

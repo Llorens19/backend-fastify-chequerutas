@@ -24,6 +24,8 @@ export const getRouteCommentsUseCase = async ({ repo, request }: IUseCaseData<IC
 
   const comments = await repo.getRouteComments(idRoute, query);
 
+  console.log(comments);
+
   if (!comments) throw ErrorsComment.ErrorGettingComments;
 
   return resp(200, comments);

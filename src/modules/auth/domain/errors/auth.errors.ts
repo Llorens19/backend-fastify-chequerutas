@@ -5,5 +5,6 @@ export const ErrorsAuth = {
   UserNotFound: new ErrorResp(404, 'UserNotFound', 'User not found'),
   EmailAlreadyInUse: new ErrorResp(400, 'EmailAlreadyInUse', 'Email already in use'),
   ErrorRegisteringUser: new ErrorResp(500, 'ErrorRegisteringUser', 'Error registering user'),
-  ErrorGettingRegisteredUser: new ErrorResp(500, 'ErrorGettingRegisteredUser', 'Error getting registered user')
+  ErrorGettingRegisteredUser: new ErrorResp(500, 'ErrorGettingRegisteredUser', 'Error getting registered user'),
+  UsernameAlreadyInUse: new ErrorResp(400, 'UsernameAlreadyInUse', 'Username already in use'),
 }
