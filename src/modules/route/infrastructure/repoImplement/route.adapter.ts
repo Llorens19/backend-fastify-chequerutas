@@ -12,9 +12,12 @@ import {  ILike, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 import { ILocation } from '@/shared/interfaces/entities/location.interface';
 import { IRotePointsResp } from '@/modules/route/domain/interfaces/getRoutePoints.use-case';
 import { ICoordenate } from '@/shared/interfaces/utils/coordinat.interface';
+import { IFavorite } from '@/shared/interfaces/entities/favorite.interface';
+import { Favorites } from '@/shared/entities/Favorites';
 
 
 const connectionRoute = AppDataSource.getRepository<IRoute>(Routes);
+const connectionFavorite = AppDataSource.getRepository<IFavorite>(Favorites);
 
 
 export class RouteRepoAdapter implements IRouteOutputPort {
@@ -179,7 +182,28 @@ export class RouteRepoAdapter implements IRouteOutputPort {
     });
 
     return routes;
-  }
+  };
+
+  isFavorite = async (idRoute: string, idUser: string): Promise<boolean> => {
+    const isFavorite = await connectionFavorite.findOne({
+      where: {
+        idRoute,
+        idUser
+      }
+    });
+
+    return !!isFavorite;
+  };
+
+  favoriteRoute = async (idRoute: string, idUser: string): Promise<IFavorite> => {
+    const favorite = connectionFavorite.create({
+      idRoute,
+      idUser,
+    });
+
+    return await connectionFavorite.save(favorite);
+
+  };
 
 
 }

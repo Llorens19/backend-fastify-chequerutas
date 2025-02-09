@@ -2,6 +2,7 @@ import { ICreateRouteFieldsRepo } from "@/modules/route/domain/interfaces/create
 import { IEditRouteInput } from "@/modules/route/domain/interfaces/editRoute.interface";
 import { IGetAllRoutesOutput, IQueryParams } from "@/modules/route/domain/interfaces/getAllRoutes.interface";
 import { IRotePointsResp } from "@/modules/route/domain/interfaces/getRoutePoints.use-case";
+import { IFavorite } from "@/shared/interfaces/entities/favorite.interface";
 import { ILocation } from "@/shared/interfaces/entities/location.interface";
 import { IRoute } from "@/shared/interfaces/entities/route.interface"
 
@@ -17,4 +18,6 @@ export interface IRouteOutputPort {
   getRoutePoints(query: IQueryParams): Promise<IRotePointsResp>;
   getRoutesUserPublic(username: string): Promise<IRoute[] | null>;
   getRoutesUserPrivate(username: string): Promise<IRoute[] | null>;
+  isFavorite(idRoute: string, idUser: string): Promise<boolean>;
+  favoriteRoute(idRoute: string, idUser: string): Promise<IFavorite>;
 }
