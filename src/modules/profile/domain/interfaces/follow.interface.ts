@@ -1,3 +1,3 @@
-export interface IFollowInput{
+export interface IFollowParams{
   idFollowed: string;
 }

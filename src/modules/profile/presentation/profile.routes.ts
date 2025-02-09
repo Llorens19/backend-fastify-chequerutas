@@ -12,6 +12,7 @@ import { followUseCase } from "@/modules/profile/application/use-cases/follow.us
 
 //Middlewares
 import verifyJWT from "@/shared/middlewares/verifyJWT.middleware";
+import { unFollowUseCase } from "@/modules/profile/application/use-cases/unfollow.use-case";
 
 
 
@@ -20,7 +21,8 @@ const profilePort = new ProfileRepoAdapter();
 
 const profileRoutes = (routes: FastifyInstance): void => {
   routes.get("/profile/:username", genericController(getProfileUseCase, profilePort));
-  routes.post("/profile/follow", { preHandler: verifyJWT }, genericController(followUseCase, profilePort));
+  routes.post("/profile/follow/:idFollowed", { preHandler: verifyJWT }, genericController(followUseCase, profilePort));
+  routes.delete("/profile/unfollow/:idUnFollowed", { preHandler: verifyJWT }, genericController(unFollowUseCase, profilePort));
   routes.put("/profile", { preHandler: verifyJWT }, genericController(editProfileUseCase, profilePort));
 };
 

@@ -2,7 +2,7 @@
 import { IProfileOutputPort } from "@/modules/profile/domain/repo/profile.port";
 import { IResp } from "@/shared/interfaces/respUtils.interface";
 import { IUseCaseData } from "@/shared/interfaces/useCaseGenericInpur.interface";
-import { IFollowInput } from "@/modules/profile/domain/interfaces/follow.interface";
+import { IFollowParams } from "@/modules/profile/domain/interfaces/follow.interface";
 import { IFollower } from "@/shared/interfaces/entities/follower.interface";
 
 //Utils
@@ -14,7 +14,7 @@ import { ErrorsProfile } from "@/modules/profile/domain/errors/profile.errors";
 
 export const followUseCase = async ({ repo, request }: IUseCaseData<IProfileOutputPort>): Promise<IResp<IFollower>> => {
 
-  const { idFollowed } = request.body as IFollowInput;
+  const { idFollowed } = request.params as IFollowParams;
 
   const {idUser} = request.middlewareData!;
 

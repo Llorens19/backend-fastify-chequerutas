@@ -80,4 +80,20 @@ export class ProfileRepoAdapter implements IProfileOutputPort {
     return await connectionFollowers.save(created);
   };
 
+  unFollowUser = async (idUser: string, idUnFollowed: string): Promise<IFollower> => {
+
+    const following = await connectionFollowers.findOne({
+      where: {
+        idUser,
+        userFollowed: idUnFollowed
+      }
+    });
+    await connectionFollowers.delete({
+      idUser,
+      userFollowed: idUnFollowed
+    });
+
+    return following!;
+  };
+
 }

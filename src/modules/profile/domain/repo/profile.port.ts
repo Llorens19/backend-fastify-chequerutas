@@ -10,4 +10,5 @@ export interface IProfileOutputPort {
   editClientProfile(idUser: string, user:IEditProfileInput): Promise<void>;
   isFollowing(idUser: string, idFollowed: string): Promise<Boolean>;
   followUser(idUser: string, idFollowed: string): Promise<IFollower>;
+  unFollowUser(idUser: string, idUnFollowed: string): Promise<IFollower>;
 }
