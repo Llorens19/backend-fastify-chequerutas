@@ -14,11 +14,14 @@ import { IClientFields } from "@/shared/interfaces/entities/client.interface";
 import { IUserGeneric } from "@/shared/interfaces/entities/user.interface";
 import { Followers } from "@/shared/entities/Followers";
 import { IFollower } from "@/shared/interfaces/entities/follower.interface";
+import { Favorites } from "@/shared/entities/Favorites";
+import { IFavorite } from "@/shared/interfaces/entities/favorite.interface";
 
 const connection = AppDataSource.getRepository<IUserGeneric>(Users);
 const connectionAdmin = AppDataSource.getRepository<IAdminFields>(Admins);
 const connectionClient = AppDataSource.getRepository<IClientFields>(Clients);
 const connectionFollowers = AppDataSource.getRepository<IFollower>(Followers);
+const connectionFavorites = AppDataSource.getRepository<IFavorite>(Favorites);
 
 export class ProfileRepoAdapter implements IProfileOutputPort {
 
@@ -28,7 +31,9 @@ export class ProfileRepoAdapter implements IProfileOutputPort {
         'followers',
         'followings',
         'followings.followerUser',
-        'followers.followingUser'
+        'followers.followingUser',
+        'favorites',
+        'favorites.route'
       ],
       where: { username } });
 
@@ -102,5 +107,16 @@ export class ProfileRepoAdapter implements IProfileOutputPort {
 
     return following!;
   };
+
+  favoritesUser = async (idUser: string): Promise<IFavorite[]> => {
+    return await connectionFavorites.find({
+      relations: ['route'],
+      where: {
+        idUser
+      }
+    });
+  };
+
+
 
 }

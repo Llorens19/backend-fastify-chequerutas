@@ -37,7 +37,9 @@ export class AuthRepoAdapter implements IAuthOutputPort {
         'followers',
         'followings',
         'followings.followerUser',
-        'followers.followingUser'
+        'followers.followingUser',
+        'favorites',
+        'favorites.route'
       ],
       where: { email } });
 

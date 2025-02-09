@@ -1,4 +1,5 @@
 import { IEditProfileInput } from "@/modules/profile/domain/interfaces/editProfile.interface";
+import { IFavorite } from "@/shared/interfaces/entities/favorite.interface";
 import { IFollower } from "@/shared/interfaces/entities/follower.interface";
 import { IUserGeneric } from "@/shared/interfaces/entities/user.interface";
 
@@ -11,4 +12,5 @@ export interface IProfileOutputPort {
   isFollowing(idUser: string, idFollowed: string): Promise<Boolean>;
   followUser(idUser: string, idFollowed: string): Promise<IFollower>;
   unFollowUser(idUser: string, idUnFollowed: string): Promise<IFollower>;
+  favoritesUser(idUser: string): Promise<IFavorite[]>;
 }

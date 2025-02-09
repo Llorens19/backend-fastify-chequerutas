@@ -9,3 +9,7 @@ export interface IFavorite{
   user?: IUserGeneric;
   route?: IRoute;
 }
+
+export interface IFavorites{
+  favorites: IFavorite[];
+}
