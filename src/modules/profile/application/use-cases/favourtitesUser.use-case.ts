@@ -7,7 +7,7 @@ import { IUseCaseData } from "@/shared/interfaces/useCaseGenericInpur.interface"
 import { resp } from "@/shared/utils/resp.util";
 
 //Error
-import { IFavorite, IFavorites } from "@/shared/interfaces/entities/favorite.interface";
+import { IFavorites } from "@/shared/interfaces/entities/favorite.interface";
 
 
 export const favoritesUserUseCase = async ({ repo, request }: IUseCaseData<IProfileOutputPort>): Promise<IResp<IFavorites>> => {

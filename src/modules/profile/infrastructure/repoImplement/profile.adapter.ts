@@ -110,7 +110,14 @@ export class ProfileRepoAdapter implements IProfileOutputPort {
 
   favoritesUser = async (idUser: string): Promise<IFavorite[]> => {
     return await connectionFavorites.find({
-      relations: ['route'],
+      relations: ['route',
+        'route.comments',
+        'route.favorites',
+        'route.imagesRoutes',
+        'route.category',
+        'route.user',
+        'route.usersRatings',
+      ],
       where: {
         idUser
       }
