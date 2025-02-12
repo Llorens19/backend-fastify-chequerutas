@@ -13,4 +13,5 @@ export interface IProfileOutputPort {
   followUser(idUser: string, idFollowed: string): Promise<IFollower>;
   unFollowUser(idUser: string, idUnFollowed: string): Promise<IFollower>;
   favoritesUser(idUser: string): Promise<IFavorite[]>;
+  editUserPremium(idUser: string, premiumLevel: number, premiumUntil: Date): Promise<Boolean>;
 }

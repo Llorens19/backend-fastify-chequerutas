@@ -124,6 +124,12 @@ export class ProfileRepoAdapter implements IProfileOutputPort {
     });
   };
 
+  editUserPremium = async (idUser: string, premiumLevel: number, premiumUntil: Date): Promise<Boolean> => {
+    const userUpdated = await connection.update({idUser},{ premiumLevel, premiumUntil });
+    if (userUpdated.affected === 0) return false;
+
+    return true ;
+  };
 
 
 }

@@ -62,6 +62,13 @@ export class Users {
   })
   isActive: boolean | null;
 
+  @Column("timestamp without time zone", {
+    name: "premium_until",
+    nullable: true,
+    default: null,
+  })
+  premiumUntil: Date;
+
   @Column("boolean", {
     name: "is_deleted",
     nullable: true,
@@ -120,6 +127,8 @@ export class Users {
 
   @OneToMany(() => Payments, (payments) => payments.idUser)
   payments: Payments[];
+
+
 
   @OneToMany(() => RefreshTokens, (refreshTokens) => refreshTokens.idUser)
   refreshTokens: RefreshTokens[];
