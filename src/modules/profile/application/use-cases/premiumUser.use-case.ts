@@ -22,7 +22,7 @@ export const premiumUserUseCase = async ({ repo, request }: IUseCaseData<IProfil
   const { redis } = request.server;
   const { time } = request.body as IPremiumUserProps;
 
-  if (!time) throw ErrorsProfile.ErrorEditProfile;
+  if (!time) throw ErrorsProfile.ErrorPremiumUser;
 
   const premiumTime = new Date();
 
@@ -44,16 +44,16 @@ export const premiumUserUseCase = async ({ repo, request }: IUseCaseData<IProfil
       premiumLevel = 2;
       break;
     default:
-      throw ErrorsProfile.ErrorEditProfile;
+      throw ErrorsProfile.ErrorPremiumUser;
   }
 
   const response = await repo.editUserPremium(idUser, premiumLevel, premiumTime);
 
-  if (!response) throw ErrorsProfile.ErrorEditProfile;
+  if (!response) throw ErrorsProfile.ErrorPremiumUser;
 
   const userUpdated = await repo.getUserByUsername(username);
 
-  if (!userUpdated) throw ErrorsProfile.ErrorEditProfile;
+  if (!userUpdated) throw ErrorsProfile.ErrorPremiumUser;
 
   await redis.set(`user:${username}`, JSON.stringify(userUpdated), 'EX', Number(process.env.REDIS_EXPIRATION));
 
