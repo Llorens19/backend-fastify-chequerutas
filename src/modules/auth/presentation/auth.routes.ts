@@ -14,6 +14,7 @@ import { registerUseCase } from "@/modules/auth/application/use-cases/register.u
 
 //middlewares
 import verifyJWT from "@/shared/middlewares/verifyJWT.middleware";
+import { logoutUseCase } from "@/modules/auth/application/use-cases/logout.use-case";
 
 
 const authRepo = new AuthRepoAdapter();
@@ -23,6 +24,7 @@ const authRoutes = (routes: FastifyInstance): void => {
   routes.post("/login", genericController(loginUseCase, authRepo));
   routes.get("/current_user", { preHandler: verifyJWT }, genericController(getCurrentUserUseCase, authRepo));
   routes.get("/new_access_token", genericController(getNewAccessToken, authRepo));
+  routes.delete("/logout",  genericController(logoutUseCase, authRepo));
 };
 
 export default authRoutes;

@@ -97,4 +97,9 @@ export class AuthRepoAdapter implements IAuthOutputPort {
     return await connectionTokenBlackList.findOne({ where: { token } });
   }
 
+  deleteRefreshToken = async (token: string): Promise<void> => {
+    await connectionRefreshToken.delete({ token });
+    await connectionTokenBlackList.save({ token, expiresAt: new Date(Date.now()) });
+  }
+
 }

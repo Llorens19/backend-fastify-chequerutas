@@ -16,4 +16,5 @@ export interface IAuthOutputPort {
   addRefreshTokenRepo(token: string, idUser: string, expiresAt: number): Promise<IRefreshToken>;
   searchRefreshToken(token: string): Promise<IRefreshToken | null>;
   searchBlackListToken(token: string): Promise<IBlackList | null>;
+  deleteRefreshToken(token: string): Promise<void>;
 }
