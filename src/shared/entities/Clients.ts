@@ -1,5 +1,5 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
-import { Users } from "./Users";
+import { Column, Entity, Index } from "typeorm";
+
 
 @Index("clients_pkey", ["idClient"], { unique: true })
 @Entity("clients", { schema: "public" })

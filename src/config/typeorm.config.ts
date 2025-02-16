@@ -1,5 +1,4 @@
 import { DataSource } from 'typeorm';
-
 import { Achievements } from '@/shared/entities/Achievements';
 import { AchievementsUsers } from '@/shared/entities/AchievementsUsers';
 import { Admins } from '@/shared/entities/Admins';
@@ -8,15 +7,16 @@ import { Categories } from '@/shared/entities/Categories';
 import { Clients } from '@/shared/entities/Clients';
 import { Comments } from '@/shared/entities/Comments';
 import { Favorites } from '@/shared/entities/Favorites';
+import { Followers } from '@/shared/entities/Followers';
 import { ImagesRoutes } from '@/shared/entities/ImagesRoutes';
-import { Notifications } from '@/shared/entities/Notifications';
-import { NotificationsUsers } from '@/shared/entities/NotificationsUsers';
 import { Ratings } from '@/shared/entities/Ratings';
 import { RefreshTokens } from '@/shared/entities/RefreshTokens';
 import { Routes } from '@/shared/entities/Routes';
 import { Users } from '@/shared/entities/Users';
 import { UsersRatings } from '@/shared/entities/UsersRatings';
 import { Locations } from '@/shared/entities/Locations';
+import { Payments } from '@/shared/entities/Payments';
+import { Notifications } from '@/shared/entities/Notifications';
 
 
 
@@ -42,14 +42,16 @@ export const AppDataSource = new DataSource({
     Clients,
     Comments,
     Favorites,
+    Followers,
     ImagesRoutes,
     Notifications,
-    NotificationsUsers,
+    Payments,
     Ratings,
     RefreshTokens,
     Routes,
     Users,
     UsersRatings,
     Locations,
+
   ],
 });

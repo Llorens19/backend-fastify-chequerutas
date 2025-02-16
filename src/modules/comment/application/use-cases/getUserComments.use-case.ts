@@ -14,10 +14,11 @@ import { resp } from "@/shared/utils/resp.util";
 
 export const getUserCommentsUseCase = async ({ repo, request }: IUseCaseData<ICommentOutputPort>): Promise<IResp<ICommentsResponse>> => {
 
-  const { idUser } = request.middlewareData!;
+  // const { idUser } = request.middlewareData!;
+  const { username } = request.params as { username: string };
   const { query } = request;
 
-  const comments = await repo.getUserComments(idUser, query);
+  const comments = await repo.getUserComments(username, query);
 
   if (!comments) throw ErrorsComment.ErrorGettingComments;
 

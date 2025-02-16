@@ -32,7 +32,18 @@ const connectionRefreshToken = AppDataSource.getRepository<IRefreshToken>(Refres
 export class AuthRepoAdapter implements IAuthOutputPort {
 
   getUserByEmailRepo = async (email: string): Promise<IUserGeneric | null> => {
-    const user = await connection.findOne({ where: { email } });
+    const user = await connection.findOne({
+      relations: [
+        'followers',
+        'followings',
+        'followings.followerUser',
+        'followers.followingUser',
+        'favorites',
+        'favorites.route',
+        'notifications',
+        'payments'
+      ],
+      where: { email } });
 
     if (!user) return null;
 
@@ -53,6 +64,10 @@ export class AuthRepoAdapter implements IAuthOutputPort {
     return user;
   };
 
+  getUserByUsernameRepo = async (username: string): Promise<IUserGeneric | null> => {
+    return await connection.findOne({ where: { username } });
+  };
+
   registerRepo = async (user: IRegister): Promise<IUserGeneric> => {
     const {client, ...rest} = user;
     return await connection.save({ ...rest });
@@ -63,9 +78,7 @@ export class AuthRepoAdapter implements IAuthOutputPort {
   };
 
   registerClientRepo = async (user: Omit<IClientFields, 'idClient'>): Promise<IClientFields> => {
-    const resp =  await connectionClient.save(user);
-    console.log("------------------------------",resp);
-    return resp;
+    return await connectionClient.save(user);
   };
 
   addTokenToBlacklistRepo = async (token: string): Promise<void> => {
@@ -82,6 +95,11 @@ export class AuthRepoAdapter implements IAuthOutputPort {
 
   searchBlackListToken = async (token: string): Promise<IBlackList | null> => {
     return await connectionTokenBlackList.findOne({ where: { token } });
+  }
+
+  deleteRefreshToken = async (token: string): Promise<void> => {
+    await connectionRefreshToken.delete({ token });
+    await connectionTokenBlackList.save({ token, expiresAt: new Date(Date.now()) });
   }
 
 }

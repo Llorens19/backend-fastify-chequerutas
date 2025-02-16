@@ -15,10 +15,16 @@ import { deleteRouteUseCase } from "@/modules/route/application/use-cases/delete
 import { createRouteUseCase } from "@/modules/route/application/use-cases/createRoute.use-case";
 import { getRouteLocationsUseCase } from "@/modules/route/application/use-cases/getRouteLocations.use-case";
 import { getRouteTitlesUseCase } from "@/modules/route/application/use-cases/getRouteTitles.use-case";
+import { getRoutePointsUseCase } from "@/modules/route/application/use-cases/getRutePoints.use-case";
+import { getRoutesUserPublicUseCase } from "@/modules/route/application/use-cases/getRoutesUserPublic.use-case";
+import { getRoutesUserPrivateUseCase } from "@/modules/route/application/use-cases/getRoutesUserPrivate.use-case";
 
 //Middlewares
 import verifyJWT from "@/shared/middlewares/verifyJWT.middleware";
-import { getRoutePointsUseCase } from "@/modules/route/application/use-cases/getRutePoints.use-case";
+import { favoriteRouteUseCase } from "@/modules/route/application/use-cases/favoriteRoute.use-case";
+import { unFavoriteRouteUseCase } from "@/modules/route/application/use-cases/unFavoriteRoute.use-case";
+
+
 
 
 
@@ -28,8 +34,12 @@ const routeRepo = new RouteRepoAdapter();
 
 const routeRoutes = (routes: FastifyInstance): void => {
   routes.get("/routes/locations", genericController(getRouteLocationsUseCase, routeRepo));
+  routes.post("/routes/favorite/:idRoute", { preHandler: verifyJWT }, genericController(favoriteRouteUseCase, routeRepo));
+  routes.delete("/routes/unfavorite/:idRoute", { preHandler: verifyJWT }, genericController(unFavoriteRouteUseCase, routeRepo));
   routes.get("/routes/titles", genericController(getRouteTitlesUseCase, routeRepo));
   routes.get("/routes/points", genericController(getRoutePointsUseCase, routeRepo));
+  routes.get("/routes/:username/public", genericController(getRoutesUserPublicUseCase, routeRepo));
+  routes.get("/routes/:username/private", { preHandler: verifyJWT }, genericController(getRoutesUserPrivateUseCase, routeRepo));
   routes.get("/routes/:id", genericController(getRouteByIdUseCase, routeRepo));
   routes.get("/routes", genericController(getAllRoutesUseCase, routeRepo));
   routes.post("/routes",  { preHandler: verifyJWT }, genericController(createRouteUseCase, routeRepo));

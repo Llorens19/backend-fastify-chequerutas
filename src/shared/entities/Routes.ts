@@ -129,9 +129,10 @@ export class Routes {
   @Column("uuid", { name: "id_location", nullable: true })
   idLocation: string | null;
 
-  @ManyToOne(() => Users, (users) => users.routes, { onDelete: "CASCADE" })
+  @ManyToOne(() => Users, (users) => users.routes, { onDelete: "SET NULL" })
   @JoinColumn([{ name: "id_user", referencedColumnName: "idUser" }])
   user: Users;
+
 
   @OneToMany(() => UsersRatings, (usersRatings) => usersRatings.route)
   usersRatings: UsersRatings[];

@@ -30,7 +30,6 @@ export const getNewAccessToken = async ({ request, repo }: IUseCaseData<IAuthOut
 
     const tokenSearchedWhiteList = await repo.searchRefreshToken(refreshToken);
 
-    console.log(tokenSearchedWhiteList)
     if (!tokenSearchedWhiteList) throw Errors.Forbidden;
 
     const tokenSearchedBlackList = await repo.searchBlackListToken(refreshToken);
@@ -49,7 +48,7 @@ export const getNewAccessToken = async ({ request, repo }: IUseCaseData<IAuthOut
           email
         }
       }, process.env.ACCESS_TOKEN_SECRET as string,
-        { expiresIn: process.env.ACCESS_TOKEN_EXPIRATION ?? '1h' }
+        { expiresIn: Number(process.env.ACCESS_TOKEN_EXPIRATION) }
       );
 
       if (!user) throw Errors.Forbidden;

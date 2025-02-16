@@ -12,9 +12,12 @@ import {  ILike, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 import { ILocation } from '@/shared/interfaces/entities/location.interface';
 import { IRotePointsResp } from '@/modules/route/domain/interfaces/getRoutePoints.use-case';
 import { ICoordenate } from '@/shared/interfaces/utils/coordinat.interface';
+import { IFavorite } from '@/shared/interfaces/entities/favorite.interface';
+import { Favorites } from '@/shared/entities/Favorites';
 
 
 const connectionRoute = AppDataSource.getRepository<IRoute>(Routes);
+const connectionFavorite = AppDataSource.getRepository<IFavorite>(Favorites);
 
 
 export class RouteRepoAdapter implements IRouteOutputPort {
@@ -151,6 +154,72 @@ export class RouteRepoAdapter implements IRouteOutputPort {
     console.log(points);
 
     return { points, count: total };
+  };
+
+  getRoutesUserPublic = async (username: string): Promise<IRoute[]> => {
+    const routes = await connectionRoute.find({
+      relations: ["comments", "favorites", "imagesRoutes", "category", "user", "usersRatings", "location"],
+      where: {
+        isPublic: true,
+        user: {
+          username
+        }
+      }
+    });
+
+    return routes;
+  }
+
+  getRoutesUserPrivate = async (username: string): Promise<IRoute[]> => {
+    const routes = await connectionRoute.find({
+      relations: ["comments", "favorites", "imagesRoutes", "category", "user", "usersRatings", "location"],
+      where: {
+        isPublic: false,
+        user: {
+          username
+        }
+      }
+    });
+
+    return routes;
+  };
+
+  isFavorite = async (idRoute: string, idUser: string): Promise<boolean> => {
+    const isFavorite = await connectionFavorite.findOne({
+      where: {
+        idRoute,
+        idUser
+      }
+    });
+
+    return !!isFavorite;
+  };
+
+  favoriteRoute = async (idRoute: string, idUser: string): Promise<IFavorite> => {
+    const favorite = connectionFavorite.create({
+      idRoute,
+      idUser,
+    });
+
+    return await connectionFavorite.save(favorite);
+
+  };
+
+  unFavoriteRoute = async (idRoute: string, idUser: string): Promise<IFavorite | null> => {
+    const favorite = await connectionFavorite.findOne({
+      where: {
+        idRoute,
+        idUser
+      }
+    });
+
+    if (!favorite) {
+      return null;
+    }
+
+    await connectionFavorite.delete(favorite.idFavorite);
+
+    return favorite;
   };
 
 

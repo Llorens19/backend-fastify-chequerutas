@@ -4,10 +4,12 @@ import { Admins } from "./Admins";
 import { Clients } from "./Clients";
 import { Comments } from "./Comments";
 import { Favorites } from "./Favorites";
-import { NotificationsUsers } from "./NotificationsUsers";
 import { RefreshTokens } from "./RefreshTokens";
 import { Routes } from "./Routes";
 import { UsersRatings } from "./UsersRatings";
+import { Followers } from "@/shared/entities/Followers";
+import { Payments } from "@/shared/entities/Payments";
+import { Notifications } from "@/shared/entities/Notifications";
 
 @Index("users_email_key", ["email"], { unique: true })
 @Index("users_pkey", ["idUser"], { unique: true })
@@ -60,6 +62,13 @@ export class Users {
   })
   isActive: boolean | null;
 
+  @Column("timestamp without time zone", {
+    name: "premium_until",
+    nullable: true,
+    default: null,
+  })
+  premiumUntil: Date;
+
   @Column("boolean", {
     name: "is_deleted",
     nullable: true,
@@ -106,11 +115,20 @@ export class Users {
   @OneToMany(() => Favorites, (favorites) => favorites.user)
   favorites: Favorites[];
 
-  @OneToMany(
-    () => NotificationsUsers,
-    (notificationsUsers) => notificationsUsers.idUser
-  )
-  notificationsUsers: NotificationsUsers[];
+
+  @OneToMany(() => Followers, (followers) => followers.followingUser)
+  followings: Followers[];
+
+  @OneToMany(() => Followers, (followers) => followers.followerUser)
+  followers: Followers[];
+
+  @OneToMany(() => Notifications, (notifications) => notifications.idUser)
+  notifications: Notifications[];
+
+  @OneToMany(() => Payments, (payments) => payments.idUser)
+  payments: Payments[];
+
+
 
   @OneToMany(() => RefreshTokens, (refreshTokens) => refreshTokens.idUser)
   refreshTokens: RefreshTokens[];
