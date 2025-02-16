@@ -33,5 +33,5 @@ export class ImagesRoutes {
     onDelete: "CASCADE",
   })
   @JoinColumn([{ name: "id_route", referencedColumnName: "idRoute" }])
-  idRoute: Routes;
+  idRoute: string;
 }

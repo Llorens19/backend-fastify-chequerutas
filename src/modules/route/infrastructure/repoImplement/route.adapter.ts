@@ -14,16 +14,28 @@ import { IRotePointsResp } from '@/modules/route/domain/interfaces/getRoutePoint
 import { ICoordenate } from '@/shared/interfaces/utils/coordinat.interface';
 import { IFavorite } from '@/shared/interfaces/entities/favorite.interface';
 import { Favorites } from '@/shared/entities/Favorites';
+import { IImageRoute } from '@/shared/interfaces/entities/imageRoute.interface';
+import { ImagesRoutes } from '@/shared/entities/ImagesRoutes';
 
 
 const connectionRoute = AppDataSource.getRepository<IRoute>(Routes);
 const connectionFavorite = AppDataSource.getRepository<IFavorite>(Favorites);
+const connectionImagesRoute = AppDataSource.getRepository<IImageRoute>(ImagesRoutes);
 
 
 export class RouteRepoAdapter implements IRouteOutputPort {
 
   createRoute = async (route: ICreateRouteFieldsRepo): Promise<IRoute> => {
-    return await connectionRoute.save(route);
+
+    const {imagesRoutes, ...routeData} = route;
+    const resp = await connectionRoute.save(routeData);
+
+    if (resp) {
+      const images = imagesRoutes.map(image => connectionImagesRoute.create({idRoute: resp.idRoute, imageUrl: image}));
+      await connectionImagesRoute.save(images);
+    }
+
+    return resp;
   }
 
   getRouteById = async (idRoute: string): Promise<IRoute | null> => {
