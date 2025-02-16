@@ -9,6 +9,7 @@ export interface ICreateRouteInput {
   idCategory: string;
   isPublic: boolean;
   idLocation: string;
+  imagesRoutes: string[];
 }
 
 export interface ICreateRouteFieldsRepo {
@@ -28,4 +29,5 @@ export interface ICreateRouteFieldsRepo {
   negativeGradient: number | null;
   cumulativeGradient: number | null;
   idLocation: string;
+  imagesRoutes: string[];
 }

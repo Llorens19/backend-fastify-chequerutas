@@ -21,8 +21,8 @@ import { resp } from "@/shared/utils/resp.util";
 
 export const createRouteUseCase = async ({ repo, request }: IUseCaseData<IRouteOutputPort>): Promise<IResp<IRouteResp>> => {
   const { idUser } = request.middlewareData!;
-  const { title, description, coordinates, level, duration, idCategory, isPublic, idLocation} = request.body as ICreateRouteInput;
-  if(!title || !description || !coordinates || !level || !duration || !idCategory || !idLocation) throw Errors.MissingFields;
+  const { title, description, coordinates, level, duration, idCategory, isPublic, idLocation, imagesRoutes} = request.body as ICreateRouteInput;
+  if(!title || !description || !coordinates || !level || !duration || !idCategory || !idLocation || !imagesRoutes) throw Errors.MissingFields;
 
   const distance = calculateDistance(coordinates);
   const startCoordinates = coordinates[0];
@@ -44,7 +44,8 @@ export const createRouteUseCase = async ({ repo, request }: IUseCaseData<IRouteO
     positiveGradient,
     negativeGradient,
     cumulativeGradient,
-    idLocation
+    idLocation,
+    imagesRoutes
   }
 
   const newRoute = await repo.createRoute(ruteData);
