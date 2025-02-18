@@ -21,4 +21,5 @@ export interface IRouteOutputPort {
   isFavorite(idRoute: string, idUser: string): Promise<boolean>;
   favoriteRoute(idRoute: string, idUser: string): Promise<IFavorite>;
   unFavoriteRoute(idRoute: string, idUser: string): Promise<IFavorite | null>;
+  getSearchedLocations(search: string): Promise<ILocation[] | null>;
 }

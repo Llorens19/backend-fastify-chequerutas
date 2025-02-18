@@ -23,6 +23,7 @@ import { getRoutesUserPrivateUseCase } from "@/modules/route/application/use-cas
 import verifyJWT from "@/shared/middlewares/verifyJWT.middleware";
 import { favoriteRouteUseCase } from "@/modules/route/application/use-cases/favoriteRoute.use-case";
 import { unFavoriteRouteUseCase } from "@/modules/route/application/use-cases/unFavoriteRoute.use-case";
+import { searchLocationsUseCase } from "@/modules/route/application/use-cases/searchLocation.use-case";
 
 
 
@@ -33,6 +34,7 @@ const routeRepo = new RouteRepoAdapter();
 
 
 const routeRoutes = (routes: FastifyInstance): void => {
+  routes.post("/routes/locations/search", genericController(searchLocationsUseCase, routeRepo));
   routes.get("/routes/locations", genericController(getRouteLocationsUseCase, routeRepo));
   routes.post("/routes/favorite/:idRoute", { preHandler: verifyJWT }, genericController(favoriteRouteUseCase, routeRepo));
   routes.delete("/routes/unfavorite/:idRoute", { preHandler: verifyJWT }, genericController(unFavoriteRouteUseCase, routeRepo));

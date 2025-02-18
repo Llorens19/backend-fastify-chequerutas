@@ -8,7 +8,7 @@ import { IRouteOutputPort } from '../../domain/repo/route.port';
 import { Routes } from '@/shared/entities/Routes';
 import { IGetAllRoutesOutput, IQueryParams } from '@/modules/route/domain/interfaces/getAllRoutes.interface';
 import { IEditRouteInput } from '@/modules/route/domain/interfaces/editRoute.interface';
-import {  ILike, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
+import { ILike, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 import { ILocation } from '@/shared/interfaces/entities/location.interface';
 import { IRotePointsResp } from '@/modules/route/domain/interfaces/getRoutePoints.use-case';
 import { ICoordenate } from '@/shared/interfaces/utils/coordinat.interface';
@@ -16,22 +16,24 @@ import { IFavorite } from '@/shared/interfaces/entities/favorite.interface';
 import { Favorites } from '@/shared/entities/Favorites';
 import { IImageRoute } from '@/shared/interfaces/entities/imageRoute.interface';
 import { ImagesRoutes } from '@/shared/entities/ImagesRoutes';
+import { Locations } from '@/shared/entities/Locations';
 
 
 const connectionRoute = AppDataSource.getRepository<IRoute>(Routes);
 const connectionFavorite = AppDataSource.getRepository<IFavorite>(Favorites);
 const connectionImagesRoute = AppDataSource.getRepository<IImageRoute>(ImagesRoutes);
+const connectionLocation = AppDataSource.getRepository<ILocation>(Locations);
 
 
 export class RouteRepoAdapter implements IRouteOutputPort {
 
   createRoute = async (route: ICreateRouteFieldsRepo): Promise<IRoute> => {
 
-    const {imagesRoutes, ...routeData} = route;
+    const { imagesRoutes, ...routeData } = route;
     const resp = await connectionRoute.save(routeData);
 
     if (resp) {
-      const images = imagesRoutes.map(image => connectionImagesRoute.create({idRoute: resp.idRoute, imageUrl: image}));
+      const images = imagesRoutes.map(image => connectionImagesRoute.create({ idRoute: resp.idRoute, imageUrl: image }));
       await connectionImagesRoute.save(images);
     }
 
@@ -232,6 +234,16 @@ export class RouteRepoAdapter implements IRouteOutputPort {
     await connectionFavorite.delete(favorite.idFavorite);
 
     return favorite;
+  };
+
+  getSearchedLocations = async (search: string): Promise<ILocation[] | null> => {
+    return await connectionLocation.find({
+      where: {
+        nLocation: ILike(`%${search}%`)
+      },
+      take: 30,
+
+    });
   };
 
 

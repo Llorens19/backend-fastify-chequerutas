@@ -113,6 +113,7 @@ export class ProfileRepoAdapter implements IProfileOutputPort {
       relations: ['route',
         'route.comments',
         'route.favorites',
+        'route.location',
         'route.imagesRoutes',
         'route.category',
         'route.user',
