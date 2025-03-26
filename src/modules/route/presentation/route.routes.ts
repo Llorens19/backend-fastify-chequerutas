@@ -50,3 +50,4 @@ const routeRoutes = (routes: FastifyInstance): void => {
 };
 
 export default routeRoutes;
+[]
